@@ -1,3 +1,4 @@
+//add event listener
 document.addEventListener('DOMContentLoaded', function () {
   // Get parameters from URL
   const urlParams = new URLSearchParams(window.location.search);
