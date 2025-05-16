@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>Reelgood</display-name>
+
+    <!-- JSP Configuration -->
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>javaEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+    </servlet-mapping>
+
+    <!-- Controllers -->
+    <!-- Authentication -->
+    <servlet>
+        <display-name>Login</display-name>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.reelgood.controller.LoginController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Register</display-name>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.reelgood.controller.RegisterController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Logout</display-name>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.reelgood.controller.LogoutController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- User Management -->
+    <!-- REMOVE ProfileController mapping below to avoid duplicate mapping with annotation -->
+    <!--
+    <servlet>
+        <display-name>Profile</display-name>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>com.reelgood.controller.ProfileController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    -->
+
+    <!-- Booking System -->
+    <servlet>
+        <display-name>My Bookings</display-name>
+        <servlet-name>MyBookingsController</servlet-name>
+        <servlet-class>com.reelgood.controller.MyBookingsController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyBookingsController</servlet-name>
+        <url-pattern>/my-bookings</url-pattern>
+    </servlet-mapping>
+
+    <!-- Movie System -->
+    <servlet>
+        <display-name>Movie Image</display-name>
+        <servlet-name>MovieImageController</servlet-name>
+        <servlet-class>com.reelgood.controller.MovieImageController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieImageController</servlet-name>
+        <url-pattern>/movie-image</url-pattern>
+    </servlet-mapping>
+
+    <!-- Admin Controllers -->
+    <servlet>
+        <display-name>Admin Movies</display-name>
+        <servlet-name>AdminMoviesController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminMoviesController</servlet-class>
+        <async-supported>true</async-supported>
+        <multipart-config>
+            <location>${java.io.tmpdir}</location>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminMoviesController</servlet-name>
+        <url-pattern>/admin/movies/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Admin Bookings</display-name>
+        <servlet-name>AdminBookingsController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminBookingsController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminBookingsController</servlet-name>
+        <url-pattern>/admin/bookings</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Admin Users</display-name>
+        <servlet-name>AdminUsersController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminUsersController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminUsersController</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Admin Theaters</display-name>
+        <servlet-name>AdminTheatersController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminTheatersController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminTheatersController</servlet-name>
+        <url-pattern>/admin/theaters</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Admin Halls</display-name>
+        <servlet-name>AdminHallsController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminHallsController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminHallsController</servlet-name>
+        <url-pattern>/admin/halls</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Admin Dashboard</display-name>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminDashboardController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>User Movies</display-name>
+        <servlet-name>UserMoviesController</servlet-name>
+        <servlet-class>com.reelgood.controller.UserMoviesController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserMoviesController</servlet-name>
+        <url-pattern>/user/movies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserDashboardController</servlet-name>
+        <servlet-class>com.reelgood.controller.UserDashboardController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDashboardController</servlet-name>
+        <url-pattern>/user/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserIndexController</servlet-name>
+        <servlet-class>com.reelgood.controller.UserIndexController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserIndexController</servlet-name>
+        <url-pattern>/user/home</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminAddShowtimesController</servlet-name>
+        <servlet-class>com.reelgood.controller.AdminAddShowtimesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAddShowtimesController</servlet-name>
+        <url-pattern>/admin/add-showtimes</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>Movie Schedule</display-name>
+        <servlet-name>MovieScheduleController</servlet-name>
+        <servlet-class>com.reelgood.controller.MovieScheduleController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieScheduleController</servlet-name>
+        <url-pattern>/admin/schedules</url-pattern>
+    </servlet-mapping>
+
+    <!-- Security Filters -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.reelgood.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Static Resources -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.gif</url-pattern>
+    </servlet-mapping>
+
+    <!-- Welcome Files -->
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Default Mapping -->
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>

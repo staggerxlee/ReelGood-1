@@ -1,0 +1,238 @@
+:root {
+  --primary: #ff4757;
+  --primary-hover: #ff6b81;
+  --primary-foreground: #fff;
+  --muted-foreground: #aaa;
+  --foreground: #fff;
+  --radius: 8px;
+  --background: #181012;
+}
+
+body {
+  /* background-image removed, now set in JSP for dynamic context path */
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-color: #181012 !important;
+}
+
+/* Login Page Styles */
+.login-page {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 3rem;
+}
+
+.login-container {
+  
+  width: 100%;
+  max-width: 420px;
+  
+}
+
+
+.login-tab-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: auto;
+  padding: 1rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  
+  transition: all 0.3s;
+}
+
+.login-tab-btn.active {
+  color: var(--foreground);
+  background-color: var(--primary);
+}
+
+.login-tab-btn:hover:not(.active) {
+  color: var(--foreground);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Form Sections */
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form-section {
+  display: none;
+  padding: 1.5rem;
+}
+
+.login-form-section.active {
+  display: block;
+}
+
+.login-form-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Groups */
+.login-form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--backgound);
+  margin-bottom: 0.375rem;
+  border: none;
+}
+
+.login-input-group {
+  position: relative;
+}
+
+.login-icon {
+  position: absolute;
+  left: 0.5rem;
+  top: 30%;
+  transform: translateY(-40%);
+  color: var(--muted-foreground);
+}
+
+.login-form-group input[type="text"],
+.login-form-group input[type="email"],
+.login-form-group input[type="password"],
+.login-form-group input[type="tel"] {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  transition: border-color 0.3s;
+  background-color: #2a1010;
+  color: var(--foreground);
+}
+
+.login-form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.login-form-group input.error {
+  border-color: var(--primary);
+}
+
+.login-error-message {
+  display: block;
+  color: var(--primary);
+  font-size: 0.75rem;
+  margin-top: 0.3125rem;
+  min-height: 1.125rem;
+}
+
+.login-toggle-password {
+  position: absolute;
+  right: 0.5rem;
+  top: 30%;
+  transform: translateY(-40%);
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+
+/* Forgot Password */
+.login-forgot-password {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.login-forgot-password a {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.login-forgot-password a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+
+
+/* Submit Button */
+.login-submit-btn {
+  width: 50%;
+  padding: 0.75rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-submit-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.login-submit-btn i {
+  margin-left: 0.5rem;
+}
+
+.login-submit-btn.loading {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.login-submit-btn.loading span {
+  display: none;
+}
+
+.login-submit-btn.loading::after {
+  content: "";
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: login-spin 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+
+
+/* Footer */
+.login-form-footer {
+  padding: 1rem 1.5rem;
+  text-align: center;
+}
+
+.login-form-footer p {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.login-form-footer a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.login-form-footer a:hover {
+  text-decoration: underline;
+}
+
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
