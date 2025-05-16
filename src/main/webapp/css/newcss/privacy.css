@@ -1,0 +1,146 @@
+/* Privacy Page Styles */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex: 1;
+  }
+  
+  /* Privacy Header */
+  .privacy-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .privacy-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+  }
+  
+  .privacy-tagline {
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+  }
+  
+  /* Privacy Sections */
+  .privacy-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .privacy-section {
+    background-color: var(--muted);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  
+  .privacy-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+  }
+  
+  .privacy-section p {
+    color: var(--foreground);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .privacy-list {
+    list-style-type: none;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .privacy-list li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
+  
+  .privacy-list li::before {
+    content: "•";
+    position: absolute;
+    left: -0.5rem;
+    color: var(--primary);
+  }
+  
+  .contact-email {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  .privacy-updated {
+    text-align: center;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    font-style: italic;
+  }
+  
+  /* Ensure the footer spans full width */
+  .site-footer {
+    width: 100%;
+    margin-top: auto;
+  }
+  
+  /* Make sure the footer content is centered */
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+  }
+  
+  /* Active link in footer */
+  .footer-links a.active {
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .privacy-header h1 {
+      font-size: 2rem;
+    }
+  
+    .privacy-section {
+      padding: 1.5rem;
+    }
+  
+    .privacy-section h2 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .privacy-header h1 {
+      font-size: 1.75rem;
+    }
+  
+    .privacy-tagline {
+      font-size: 1rem;
+    }
+  
+    .privacy-section {
+      padding: 1.25rem;
+    }
+  
+    .privacy-section h2 {
+      font-size: 1.125rem;
+    }
+  }
+  
