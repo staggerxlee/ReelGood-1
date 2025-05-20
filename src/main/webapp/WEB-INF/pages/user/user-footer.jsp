@@ -91,7 +91,7 @@
     <div class="footer-links">
       <a href="<%= request.getContextPath() %>/user/privacy">Privacy Policy</a>
       <a href="<%= request.getContextPath() %>/user/contact">FAQs</a>
-      <a href="<%= request.getContextPath() %>/user/about">About Us</a>
+      <a href="<%= request.getContextPath() %>/user/aboutus">About Us</a>
     </div>
     <div class="contact-info">
       Contact: 9800000000 | reelgood.contact@gmail.com
