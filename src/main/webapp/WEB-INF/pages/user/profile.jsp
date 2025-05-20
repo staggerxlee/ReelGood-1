@@ -630,23 +630,37 @@
         const photoDeleteSuccessModal = document.getElementById('photoDeleteSuccessModal');
 
         if (photoInput) {
-          photoInput.addEventListener('change', function(e) {
-            if (e.target.files && e.target.files[0]) {
-              // Preview
-              const reader = new FileReader();
-              reader.onload = function(ev) {
-                photoPreview.src = ev.target.result;
-                photoPreview.style.display = 'block';
-                photoPlaceholder.style.display = 'none';
-              };
-              reader.readAsDataURL(e.target.files[0]);
-              // Copy file to hidden input for form submission
-              hiddenPhotoInput.files = e.target.files;
-              // Show modal
-              photoConfirmModal.style.display = 'flex';
-            }
-          });
-        }
+            photoInput.addEventListener('change', function(e) {
+              const file = e.target.files[0];
+              if (file) {
+                  // Check file size (5MB limit)
+                  if (file.size > 5 * 1024 * 1024) {
+                      showErrorPopup('Image size exceeds 5MB limit. Please choose a smaller image.');
+                      e.target.value = ''; // Clear the file input
+                      return;
+                  }
+
+                  // Check file type
+                  if (!file.type.startsWith('image/')) {
+                      showErrorPopup('Please upload a valid image file.');
+                      e.target.value = ''; // Clear the file input
+                      return;
+                  }
+
+                  // Show preview
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                      photoPreview.src = e.target.result;
+                      photoPreview.style.display = 'block';
+                      photoPlaceholder.style.display = 'none';
+                  };
+                  reader.readAsDataURL(file);
+
+                  // Show confirmation modal
+                  photoConfirmModal.style.display = 'flex';
+              }
+            });
+          }
         if (confirmPhotoBtn) {
           confirmPhotoBtn.onclick = function() {
             photoConfirmModal.style.display = 'none';

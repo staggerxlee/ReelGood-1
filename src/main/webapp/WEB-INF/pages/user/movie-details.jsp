@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="user-navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,8 +103,6 @@
   </style>
 </head>
 <body class="movie-details-page">
-  <jsp:include page="user-navbar.jsp" />
-
   <div class="container">
     <a href="<%= request.getContextPath() %>/user/index" class="back-link">
       <i class="fa-solid fa-arrow-left"></i> Back to movies
@@ -180,11 +179,6 @@
             </c:choose>
           </p>
         </div>
-   
-       <a href="https://www.rottentomatoes.com/m/${movie.title}" class="review-btn" target="">
-    <i class="fas fa-star"></i> Read Reviews
-</a>
-       
         
         <div class="showtime-section">
           <h3 class="section-title">Showtimes</h3>
