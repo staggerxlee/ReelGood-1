@@ -244,9 +244,23 @@ public class MovieScheduleController extends HttpServlet {
 
     private void deleteSchedule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String scheduleIdStr = request.getParameter("id");
+        String confirmDelete = request.getParameter("confirmDeleteBookings");
         if (scheduleIdStr != null) {
             try {
                 int scheduleId = Integer.parseInt(scheduleIdStr);
+                boolean hasBookings = scheduleService.hasBookingsForSchedule(scheduleId);
+                if (hasBookings && (confirmDelete == null || !"true".equals(confirmDelete))) {
+                    // Show warning modal
+                    request.setAttribute("deleteWarning", true);
+                    request.setAttribute("deleteScheduleId", scheduleId);
+                    // Reload schedules for the page
+                    request.setAttribute("schedules", scheduleService.getAllSchedules());
+                    request.getRequestDispatcher("/WEB-INF/pages/admin/schedules.jsp").forward(request, response);
+                    return;
+                }
+                if (hasBookings && "true".equals(confirmDelete)) {
+                    scheduleService.deleteBookingsForSchedule(scheduleId);
+                }
                 scheduleService.deleteSchedule(scheduleId);
                 response.sendRedirect(request.getContextPath() + "/admin/schedules?success=Schedule deleted successfully");
             } catch (Exception e) {

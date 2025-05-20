@@ -2,6 +2,7 @@ package com.reelgood.service;
 
 import com.reelgood.config.DbConfig;
 import com.reelgood.model.ScheduleModel;
+import com.reelgood.model.TheaterRankingModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -185,6 +186,34 @@ public class ScheduleService {
         return schedules;
     }
     
+    public List<TheaterRankingModel> getTopTheaters(int limit) throws SQLException {
+        List<TheaterRankingModel> theaters = new ArrayList<>();
+        
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "SELECT TheaterLocation, COUNT(*) as total_shows " +
+                        "FROM movie_theater_schedule " +
+                        "GROUP BY TheaterLocation " +
+                        "ORDER BY total_shows DESC " +
+                        "LIMIT ?";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, limit);
+                
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        TheaterRankingModel theater = new TheaterRankingModel(
+                            rs.getString("TheaterLocation"),
+                            rs.getInt("total_shows")
+                        );
+                        theaters.add(theater);
+                    }
+                }
+            }
+        }
+        
+        return theaters;
+    }
+    
     // Debug method to log raw database content
     public void debugShowSchedulesForMovie(int movieId) {
         try (Connection conn = DbConfig.getDbConnection()) {
@@ -228,5 +257,30 @@ public class ScheduleService {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
+    }
+
+    public boolean hasBookingsForSchedule(int scheduleId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "SELECT COUNT(*) FROM bookings WHERE ScheduleID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, scheduleId);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void deleteBookingsForSchedule(int scheduleId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "DELETE FROM bookings WHERE ScheduleID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, scheduleId);
+                stmt.executeUpdate();
+            }
+        }
     }
 } 

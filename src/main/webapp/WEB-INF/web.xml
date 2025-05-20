@@ -106,6 +106,17 @@
         <servlet-name>MovieImageController</servlet-name>
         <url-pattern>/movie-image</url-pattern>
     </servlet-mapping>
+    
+    <!-- User Profile Photo -->
+    <servlet>
+        <display-name>User Profile Photo</display-name>
+        <servlet-name>UserImageController</servlet-name>
+        <servlet-class>com.reelgood.controller.UserImageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserImageController</servlet-name>
+        <url-pattern>/user-photo</url-pattern>
+    </servlet-mapping>
 
     <!-- Admin Controllers -->
     <servlet>

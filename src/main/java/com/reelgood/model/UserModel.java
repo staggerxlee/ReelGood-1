@@ -1,5 +1,13 @@
 package com.reelgood.model;
 
+import com.reelgood.config.DbConfig;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+
 public class UserModel {
     private int userID;
     private String username;
@@ -9,6 +17,7 @@ public class UserModel {
     private String email;
     private String gender;
     private String role;
+    private Blob photo;
     
     public UserModel() {}
     
@@ -90,5 +99,27 @@ public class UserModel {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Blob getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(InputStream photo) {
+        if (photo == null) {
+            this.photo = null;
+            return;
+        }
+        try {
+            byte[] photoBytes = photo.readAllBytes();
+            try (Connection conn = DbConfig.getDbConnection()) {
+                this.photo = conn.createBlob();
+                try (OutputStream out = this.photo.setBinaryStream(1)) {
+                    out.write(photoBytes);
+                }
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException("Error reading photo data: " + e.getMessage(), e);
+        }
     }
 }

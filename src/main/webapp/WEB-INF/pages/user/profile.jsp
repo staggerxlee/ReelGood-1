@@ -30,8 +30,36 @@
             </div>
             <div class="profile-main">
                 <div id="profile-info-section" class="profile-section-content active">
+                    <!-- Profile Photo Upload UI -->
+                    <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="profile-photo-circle">
+                            <img id="profilePhotoPreview" src="<%= request.getContextPath() %>/user-photo?id=${user.userID}" alt="Profile Photo" />
+                            <span id="profilePhotoPlaceholder"><i class="fas fa-user"></i></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="file" id="profilePhotoInput" name="profilePhoto" accept="image/*" style="display: none;" form="photoUploadForm" />
+                                <span style="background: #ff4757; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;">Upload Photo</span>
+                            </label>
+                            <button type="button" id="deletePhotoBtn" style="background: #fff; color: #ff4757; border: 1.5px solid #ff4757; padding: 8px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;">Delete Photo</button>
+                        </div>
+                    </div>
+                    <!-- Hidden form for photo upload -->
+                    <form id="photoUploadForm" action="<%= request.getContextPath() %>/user/profile/photo" method="post" enctype="multipart/form-data" style="display:none;">
+                        <input type="file" id="hiddenProfilePhotoInput" name="profilePhoto" accept="image/*" />
+                    </form>
+                    <!-- Modal for photo confirmation -->
+                    <div id="photoConfirmModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+                      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+                        <div style="font-size:48px;color:#ffcc00;margin-bottom:12px;"><i class="fas fa-question-circle"></i></div>
+                        <h2 style="margin-bottom:12px;">Confirm Profile Picture?</h2>
+                        <p style="margin-bottom:24px;">Do you want to set this as your profile photo?</p>
+                        <button id="confirmPhotoBtn" style="background:#4BB543;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;margin-right:10px;">Confirm</button>
+                        <button id="cancelPhotoBtn" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Cancel</button>
+                      </div>
+                    </div>
                     <h2>Personal Information</h2>
-                    <form action="<%= request.getContextPath() %>/profile" method="post" class="profile-form">
+                    <form action="<%= request.getContextPath() %>/user/profile" method="post" class="profile-form" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="update">
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -118,6 +146,9 @@
             margin-top: 2rem;
         }
         .profile-sidebar {
+            position: sticky;
+            top: 32px;
+            align-self: flex-start;
             min-width: 240px;
             max-width: 260px;
             background: linear-gradient(135deg, #232526 0%, #1a1a1a 100%);
@@ -287,7 +318,168 @@
         .btn-danger:hover {
             background: #ff6b81;
         }
+
+        /* Profile Photo Modals and Buttons */
+        .profile-modal-bg {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-modal {
+            background: #231818;
+            color: #fff;
+            padding: 32px 24px;
+            border-radius: 12px;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            position: relative;
+        }
+        .profile-modal .modal-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .profile-modal .modal-icon.confirm { color: #ffcc00; }
+        .profile-modal .modal-icon.success { color: #4BB543; }
+        .profile-modal .modal-icon.error { color: #ff4757; }
+        .profile-modal h2 {
+            margin-bottom: 12px;
+        }
+        .profile-modal p {
+            margin-bottom: 24px;
+        }
+        .profile-modal .modal-btn {
+            padding: 10px 28px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            margin-right: 10px;
+        }
+        .profile-modal .modal-btn.confirm {
+            background: #4BB543;
+            color: #fff;
+        }
+        .profile-modal .modal-btn.delete {
+            background: #ff4757;
+            color: #fff;
+        }
+        .profile-modal .modal-btn.cancel {
+            background: #fff;
+            color: #ff4757;
+            border: 1.5px solid #ff4757;
+            margin-right: 0;
+        }
+        .hidden-form { display: none; }
+        .profile-photo-circle {
+            width: 96px;
+            height: 96px;
+            border: 2.5px dashed #ff4757;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #231818;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .profile-photo-circle img,
+        .profile-photo-circle .fa-user {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .profile-photo-circle .fa-user {
+            color: #ff4757;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
     </style>
+    <!-- Profile Update Success Modal -->
+    <div id="profileSuccessModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+        <div style="font-size:48px;color:#4BB543;margin-bottom:12px;"><i class="fas fa-check-circle"></i></div>
+        <h2 style="margin-bottom:12px;">Profile Updated</h2>
+        <p style="margin-bottom:24px;">Your profile has been updated successfully!</p>
+        <button onclick="document.getElementById('profileSuccessModal').style.display='none'" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Close</button>
+      </div>
+    </div>
+    <!-- Booking Cancel Success Modal -->
+    <div id="bookingCancelModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+        <div style="font-size:48px;color:#4BB543;margin-bottom:12px;"><i class="fas fa-check-circle"></i></div>
+        <h2 style="margin-bottom:12px;">Booking Cancelled</h2>
+        <p style="margin-bottom:24px;">Your booking has been cancelled successfully.</p>
+        <button onclick="document.getElementById('bookingCancelModal').style.display='none'" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Close</button>
+      </div>
+    </div>
+    <!-- Profile Photo Update Success Modal -->
+    <div id="profilePhotoSuccessModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+        <div style="font-size:48px;color:#4BB543;margin-bottom:12px;"><i class="fas fa-check-circle"></i></div>
+        <h2 style="margin-bottom:12px;">Profile Photo Updated</h2>
+        <p style="margin-bottom:24px;">Your profile photo has been updated successfully!</p>
+        <button onclick="document.getElementById('profilePhotoSuccessModal').style.display='none'" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Close</button>
+      </div>
+    </div>
+    <!-- Hidden form for photo delete -->
+    <form id="photoDeleteForm" action="<%= request.getContextPath() %>/user/profile/photo/delete" method="post" class="hidden-form"></form>
+    <!-- Modal for delete confirmation -->
+    <div id="photoDeleteConfirmModal" class="profile-modal-bg">
+      <div class="profile-modal">
+        <div class="modal-icon confirm"><i class="fas fa-question-circle"></i></div>
+        <h2>Delete Profile Photo?</h2>
+        <p>Are you sure you want to delete your profile photo?</p>
+        <button id="confirmDeletePhotoBtn" class="modal-btn delete">Delete</button>
+        <button id="cancelDeletePhotoBtn" class="modal-btn cancel">Cancel</button>
+      </div>
+    </div>
+    <!-- Modal for delete success -->
+    <div id="photoDeleteSuccessModal" class="profile-modal-bg">
+      <div class="profile-modal">
+        <div class="modal-icon success"><i class="fas fa-check-circle"></i></div>
+        <h2>Profile Photo Deleted</h2>
+        <p>Your profile photo has been deleted successfully!</p>
+        <button onclick="document.getElementById('photoDeleteSuccessModal').style.display='none'" class="modal-btn delete">Close</button>
+      </div>
+    </div>
+    <!-- Modal for photo confirmation -->
+    <div id="photoConfirmModal" class="profile-modal-bg">
+      <div class="profile-modal">
+        <div class="modal-icon confirm"><i class="fas fa-question-circle"></i></div>
+        <h2>Confirm Profile Picture?</h2>
+        <p>Do you want to set this as your profile photo?</p>
+        <button id="confirmPhotoBtn" class="modal-btn confirm">Confirm</button>
+        <button id="cancelPhotoBtn" class="modal-btn cancel">Cancel</button>
+      </div>
+    </div>
+    <!-- Modal for photo upload success -->
+    <div id="profilePhotoSuccessModal" class="profile-modal-bg">
+      <div class="profile-modal">
+        <div class="modal-icon success"><i class="fas fa-check-circle"></i></div>
+        <h2>Profile Photo Updated</h2>
+        <p>Your profile photo has been updated successfully!</p>
+        <button onclick="document.getElementById('profilePhotoSuccessModal').style.display='none'" class="modal-btn delete">Close</button>
+      </div>
+    </div>
     <script>
         function showProfileSection(section) {
             document.querySelectorAll('.sidebar-link').forEach(link => {
@@ -310,7 +502,139 @@
             } else {
                 showProfileSection('info');
             }
+            if (window.location.search.includes('success=true')) {
+                document.getElementById('profileSuccessModal').style.display = 'flex';
+                // Remove the success param from the URL after showing the modal (optional, for better UX)
+                if (window.history.replaceState) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('success');
+                    window.history.replaceState({}, document.title, url.pathname + url.search);
+                }
+            }
+            // Booking cancel modal logic
+            if (window.location.search.includes('cancel=success')) {
+                document.getElementById('bookingCancelModal').style.display = 'flex';
+                if (window.history.replaceState) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('cancel');
+                    window.history.replaceState({}, document.title, url.pathname + url.search);
+                }
+            }
+            // Profile photo update modal
+            if (window.location.search.includes('photo=success')) {
+                document.getElementById('profilePhotoSuccessModal').style.display = 'flex';
+                if (window.history.replaceState) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('photo');
+                    window.history.replaceState({}, document.title, url.pathname + url.search);
+                }
+            }
+            // On page load, show/hide preview or placeholder based on user.photoUrl
+            var photoPreview = document.getElementById('profilePhotoPreview');
+            var photoPlaceholder = document.getElementById('profilePhotoPlaceholder');
+            if (photoPreview && photoPlaceholder) {
+                // Hide placeholder if image loads
+                photoPreview.onload = function() {
+                    if (photoPreview.naturalWidth > 0 && photoPreview.naturalHeight > 0) {
+                        photoPreview.style.display = 'block';
+                        photoPlaceholder.style.display = 'none';
+                    }
+                };
+                // Show placeholder if image fails to load
+                photoPreview.onerror = function() {
+                    photoPreview.style.display = 'none';
+                    photoPlaceholder.style.display = 'block';
+                };
+                // Initial check (in case image is cached)
+                if (photoPreview.complete && photoPreview.naturalWidth > 0) {
+                    photoPreview.style.display = 'block';
+                    photoPlaceholder.style.display = 'none';
+                } else if (photoPreview.complete) {
+                    photoPreview.style.display = 'none';
+                    photoPlaceholder.style.display = 'block';
+                }
+            }
+            // Show delete success modal if needed
+            if (window.location.search.includes('photo_deleted=success')) {
+                photoDeleteSuccessModal.style.display = 'flex';
+                if (window.history.replaceState) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('photo_deleted');
+                    window.history.replaceState({}, document.title, url.pathname + url.search);
+                }
+                // Reset preview and placeholder
+                if (photoPreview && photoPlaceholder) {
+                    photoPreview.src = '';
+                    photoPreview.style.display = 'none';
+                    photoPlaceholder.style.display = 'block';
+                }
+            }
         });
+        // Profile photo preview and modal logic
+        const photoInput = document.getElementById('profilePhotoInput');
+        const hiddenPhotoInput = document.getElementById('hiddenProfilePhotoInput');
+        const photoPreview = document.getElementById('profilePhotoPreview');
+        const photoPlaceholder = document.getElementById('profilePhotoPlaceholder');
+        const photoConfirmModal = document.getElementById('photoConfirmModal');
+        const confirmPhotoBtn = document.getElementById('confirmPhotoBtn');
+        const cancelPhotoBtn = document.getElementById('cancelPhotoBtn');
+        const photoUploadForm = document.getElementById('photoUploadForm');
+        const photoDeleteForm = document.getElementById('photoDeleteForm');
+        const photoDeleteConfirmModal = document.getElementById('photoDeleteConfirmModal');
+        const confirmDeletePhotoBtn = document.getElementById('confirmDeletePhotoBtn');
+        const cancelDeletePhotoBtn = document.getElementById('cancelDeletePhotoBtn');
+        const photoDeleteSuccessModal = document.getElementById('photoDeleteSuccessModal');
+
+        if (photoInput) {
+          photoInput.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+              // Preview
+              const reader = new FileReader();
+              reader.onload = function(ev) {
+                photoPreview.src = ev.target.result;
+                photoPreview.style.display = 'block';
+                photoPlaceholder.style.display = 'none';
+              };
+              reader.readAsDataURL(e.target.files[0]);
+              // Copy file to hidden input for form submission
+              hiddenPhotoInput.files = e.target.files;
+              // Show modal
+              photoConfirmModal.style.display = 'flex';
+            }
+          });
+        }
+        if (confirmPhotoBtn) {
+          confirmPhotoBtn.onclick = function() {
+            photoConfirmModal.style.display = 'none';
+            photoUploadForm.submit();
+          };
+        }
+        if (cancelPhotoBtn) {
+          cancelPhotoBtn.onclick = function() {
+            photoConfirmModal.style.display = 'none';
+            photoPreview.src = '';
+            photoPreview.style.display = 'none';
+            photoPlaceholder.style.display = 'block';
+            photoInput.value = '';
+            hiddenPhotoInput.value = '';
+          };
+        }
+        if (document.getElementById('deletePhotoBtn')) {
+          document.getElementById('deletePhotoBtn').onclick = function() {
+            photoDeleteConfirmModal.style.display = 'flex';
+          };
+        }
+        if (confirmDeletePhotoBtn) {
+          confirmDeletePhotoBtn.onclick = function() {
+            photoDeleteConfirmModal.style.display = 'none';
+            photoDeleteForm.submit();
+          };
+        }
+        if (cancelDeletePhotoBtn) {
+          cancelDeletePhotoBtn.onclick = function() {
+            photoDeleteConfirmModal.style.display = 'none';
+          };
+        }
     </script>
 </body>
 </html> 

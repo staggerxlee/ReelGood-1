@@ -147,6 +147,55 @@
             margin-top: 10px;
         }
 
+        /* Success Popup Styles */
+        .success-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .success-popup.show {
+            display: block;
+        }
+
+        .success-popup.hide {
+            animation: slideOut 0.3s ease-out forwards;
+        }
+
+        .success-popup i {
+            margin-right: 8px;
+        }
+
         .loading {
             position: absolute;
             top: 50%;
@@ -437,6 +486,12 @@
             <% if (successMessage != null) { %>
                 <div class="success-message"><%= successMessage %></div>
             <% } %>
+
+            <!-- Success Popup -->
+            <div id="successPopup" class="success-popup">
+                <i class="fas fa-check-circle"></i>
+                <span id="successMessage"></span>
+            </div>
 
             <div class="movie-cards-container">
                 <% for (MovieModel movie : movies) { %>
@@ -849,6 +904,32 @@
         if (editStatusSelect && editRatingGroup) {
             editStatusSelect.addEventListener('change', toggleEditRatingField);
             toggleEditRatingField();
+        }
+
+        // Show success popup
+        function showSuccessPopup(message) {
+            const popup = document.getElementById('successPopup');
+            const messageSpan = document.getElementById('successMessage');
+            messageSpan.textContent = message;
+            popup.classList.add('show');
+            
+            // Hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.add('hide');
+                setTimeout(() => {
+                    popup.classList.remove('show', 'hide');
+                }, 300);
+            }, 3000);
+        }
+
+        // Check for success parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMessage = urlParams.get('success');
+        if (successMessage) {
+            showSuccessPopup(successMessage);
+            // Remove the success parameter from URL without refreshing
+            const newUrl = window.location.pathname + window.location.search.replace(/[?&]success=[^&]+/, '');
+            window.history.replaceState({}, '', newUrl);
         }
     </script>
 </body>

@@ -174,10 +174,111 @@
         margin: 0 auto;
         padding: 3rem 1rem;
       }
+      /* Add modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: #231818;
+        color: #fff;
+        margin: 15% auto;
+        padding: 30px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        animation: modalFadeIn 0.3s ease-out;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .modal-icon.success {
+        color: #4BB543;
+      }
+
+      .modal-icon.error {
+        color: #ff4757;
+      }
+
+      .modal-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .modal-message {
+        font-size: 16px;
+        color: #e0e0e0;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      .modal-close {
+        background-color: #ff4757;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .modal-close:hover {
+        background-color: #ff6b81;
+      }
+
+      .modal.error .modal-content {
+        border-top: 4px solid #ff4757;
+      }
+
+      .modal.success .modal-content {
+        border-top: 4px solid #4BB543;
+      }
   </style>
 </head>
 <body>
   <jsp:include page="user-navbar.jsp" />
+  
+  <!-- Add Modal Component -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2 class="modal-title">Thank You!</h2>
+      <p class="modal-message">We'll get back to you soon.</p>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
   <div class="page-wrapper">
     <div class="page-content">
       <div class="contact-section">
@@ -204,7 +305,21 @@
           </button>
         </form>
         <c:if test="${not empty success}">
-          <div class="alert alert-success">${success}</div>
+          <script>
+            window.addEventListener('DOMContentLoaded', function() {
+              var modal = document.getElementById('messageModal');
+              if (!modal) return;
+              var modalContent = modal.querySelector('.modal-content');
+              var modalIcon = modal.querySelector('.modal-icon i');
+              var modalTitle = modal.querySelector('.modal-title');
+              var modalMessage = modal.querySelector('.modal-message');
+              modal.className = 'modal success';
+              modalIcon.className = 'fas fa-check-circle success';
+              modalTitle.textContent = 'Thank You!';
+              modalMessage.innerHTML = "<c:out value='${success}'/>";
+              modal.style.display = 'flex';
+            });
+          </script>
         </c:if>
         <c:if test="${not empty error}">
           <div class="alert alert-error">${error}</div>
@@ -239,6 +354,12 @@
     </div>
     <jsp:include page="user-footer.jsp" />
   </div>
-  <script src="<%= request.getContextPath() %>/js/contact.js"></script>
+
+  <script>
+    function closeModal() {
+      const modal = document.getElementById('messageModal');
+      modal.style.display = 'none';
+    }
+  </script>
 </body>
 </html> 

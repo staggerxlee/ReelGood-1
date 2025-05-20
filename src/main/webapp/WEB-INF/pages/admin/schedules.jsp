@@ -460,6 +460,27 @@
                     </form>
                 </div>
             </div>
+            
+            <!-- Delete Warning Modal -->
+            <% if (request.getAttribute("deleteWarning") != null && (Boolean)request.getAttribute("deleteWarning")) { %>
+                <div class="modal show" id="deleteWarningModal" style="display: flex;">
+                    <div class="modal-content" style="max-width: 400px; text-align: center;">
+                        <div class="modal-header">
+                            <h2>Warning</h2>
+                        </div>
+                        <div style="margin-bottom: 20px; color: #dc3545;">
+                            This schedule has bookings. Deleting it will also delete all related bookings.<br>Are you sure you want to proceed?
+                        </div>
+                        <form id="confirmDeleteForm" action="<%= request.getContextPath() %>/admin/schedules" method="get" style="display: inline;">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="<%= request.getAttribute("deleteScheduleId") %>">
+                            <input type="hidden" name="confirmDeleteBookings" value="true">
+                            <button type="submit" class="btn btn-danger">Yes, Delete All</button>
+                            <a href="<%= request.getContextPath() %>/admin/schedules" class="btn btn-cancel" style="margin-left: 10px;">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
     

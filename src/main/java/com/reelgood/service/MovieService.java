@@ -182,27 +182,34 @@ public class MovieService {
         try (Connection conn = DbConfig.getDbConnection()) {
             conn.setAutoCommit(false);
             try {
-                // Delete related reviews first
-                String deleteReviews = "DELETE FROM review WHERE MovieID = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(deleteReviews)) {
-                    stmt.setInt(1, id);
-                    stmt.executeUpdate();
+                // 1. Find all show IDs for this movie
+                String selectShows = "SELECT ScheduleID FROM movie_theater_schedule WHERE MovieID = ?";
+                try (PreparedStatement showStmt = conn.prepareStatement(selectShows)) {
+                    showStmt.setInt(1, id);
+                    try (ResultSet rs = showStmt.executeQuery()) {
+                        while (rs.next()) {
+                            int scheduleId = rs.getInt("ScheduleID");
+                            // 2. Delete all bookings for this show
+                            String deleteBookings = "DELETE FROM bookings WHERE ScheduleID = ?";
+                            try (PreparedStatement bookingStmt = conn.prepareStatement(deleteBookings)) {
+                                bookingStmt.setInt(1, scheduleId);
+                                bookingStmt.executeUpdate();
+                            }
+                        }
+                    }
                 }
-
-                // Delete related movie shows
-                String deleteShows = "DELETE FROM movieshow WHERE MovieID = ?";
+                // 3. Delete all shows for this movie
+                String deleteShows = "DELETE FROM movie_theater_schedule WHERE MovieID = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(deleteShows)) {
                     stmt.setInt(1, id);
                     stmt.executeUpdate();
                 }
-
-                // Finally delete the movie
+                // 4. Delete the movie
                 String deleteMovie = "DELETE FROM movie WHERE MovieID = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(deleteMovie)) {
                     stmt.setInt(1, id);
                     stmt.executeUpdate();
                 }
-
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();

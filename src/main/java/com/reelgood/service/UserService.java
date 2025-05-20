@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Blob;
+import java.io.InputStream;
 
 public class UserService {
     
@@ -149,18 +151,26 @@ public class UserService {
     public boolean updateUserProfile(UserModel user) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        
         try {
             conn = DbConfig.getDbConnection();
-            String sql = "UPDATE user SET Username=?, Email=?, Phone=?, Address=? WHERE UserID=?";
-            
+            boolean updatePhoto = user.getPhoto() != null;
+            String sql;
+            if (updatePhoto) {
+                sql = "UPDATE user SET Username=?, Email=?, Phone=?, Address=?, photo=? WHERE UserID=?";
+            } else {
+                sql = "UPDATE user SET Username=?, Email=?, Phone=?, Address=? WHERE UserID=?";
+            }
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPhone());
             stmt.setString(4, user.getAddress());
-            stmt.setInt(5, user.getUserID());
-            
+            if (updatePhoto) {
+                stmt.setBlob(5, user.getPhoto());
+                stmt.setInt(6, user.getUserID());
+            } else {
+                stmt.setInt(5, user.getUserID());
+            }
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -171,6 +181,32 @@ public class UserService {
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 throw new RuntimeException("Error closing resources: " + e.getMessage(), e);
+            }
+        }
+    }
+
+    public Blob getUserPhoto(int userId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "SELECT photo FROM user WHERE UserID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, userId);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getBlob("photo");
+                    }
+                    return null;
+                }
+            }
+        }
+    }
+
+    public boolean deleteUserPhoto(int userId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "UPDATE user SET photo = NULL WHERE UserID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, userId);
+                int affectedRows = stmt.executeUpdate();
+                return affectedRows > 0;
             }
         }
     }
