@@ -45,12 +45,10 @@
     }
     
     .container {
-    
       max-width: 1200px;
       margin: 0 auto;
       padding: 0;
       width: 100%;
-      
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -84,9 +82,9 @@
     /* Hero Section */
     .hero-section {
       position: relative;
-      height: 600px;
-      background-image: url('${pageContext.request.contextPath}/images/cinema-background.jpg');
-      background-size: cover;
+      height: 840px;
+      width:auto;
+      background-image: url('${pageContext.request.contextPath}/images/background-aboutus.png');
       background-position: center;
       display: flex;
       align-items: center;
@@ -104,17 +102,16 @@
     }
     
     .hero-content {
-    margin-top:300px;
+      margin-top:300px;
       position: relative;
       z-index: 2;
       display: flex;
       width: 100%;
-      
     }
     
     .hero-title {
       flex: 1;
-      font-size: 5rem;
+      font-size: 7rem;
       font-weight: 800;
       text-transform: uppercase;
       line-height: 1;
@@ -144,13 +141,12 @@
       color: var(--primary);
     }
     
-       .location-link {
+    .location-link {
       text-align: left;
       font-style: italic;
       font-size: 1rem;
       color: var(--primary);
     }
-    
     
     /* Locations Section */
     .locations-section {
@@ -180,8 +176,9 @@
     }
     
     
-     .credits-container {
-     
+    
+    
+        .credits-container {
       max-height: 800px;
       max-width: 400px;
       overflow-y: auto;
@@ -189,25 +186,9 @@
       /* Scrollbar styling */
       scrollbar-width: thin;
       scrollbar-color: var(--primary) var(--muted);
-      border-radius:20px;
-      
+      border-radius:50px;
     }
-    
-    
-    .locations-container::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .locations-container::-webkit-scrollbar-track {
-      background: var(--muted);
-      border-radius: 10px;
-    }
-    
-    .locations-container::-webkit-scrollbar-thumb {
-      background-color: var(--primary);
-      border-radius: 10px;
-    }
-    
+
     .location-card {
       display: flex;
       margin-bottom: 3rem;
@@ -246,72 +227,91 @@
     /* Credits Section */
     .credits-section {
       padding: 4rem 2rem;
-      background-color: rgba(42, 42, 42, 0.5);
+      background-color: #000000;
+      color: white;
     }
     
     .credits-title {
       font-size: 3rem;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       position: relative;
+      color: white;
     }
     
     .credits-title:after {
       content: '';
       display: block;
-      width: 100px;
-      height: 3px;
-      background-color: var(--primary);
+      width: 100%;
+      height: 1px;
+      background-color: #333;
       margin: 1rem auto;
     }
     
     .credits-container {
-      max-width: 800px;
+      max-width: 600px;
       margin: 0 auto;
+      text-align: center;
     }
     
+    .credits-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .credits-container::-webkit-scrollbar-track {
+      background: var(--muted);
+      border-radius: 10px;
+    }
+    
+    .credits-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 10px;
+    }
+
     .credit-item {
-      margin-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
       padding-bottom: 2rem;
+      border-bottom: 1px solid #333;
     }
     
     .credit-item:last-child {
       border-bottom: none;
     }
     
-    .credit-role {
+    .credit-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      justify-content: center;
+      align-items: flex-start;
     }
     
-    .credit-role-title {
-      font-size: 1.2rem;
+    .credit-label {
+      flex: 0 0 150px;
       font-weight: 600;
+      text-align: right;
+      padding-right: 20px;
+    }
+    
+    .credit-content {
+      flex: 0 0 250px;
+      text-align: left;
     }
     
     .credit-person {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 700;
+      text-transform: uppercase;
     }
     
     .credit-subtitle {
       font-size: 0.9rem;
-      color: var(--muted-foreground);
-      margin-bottom: 1rem;
+      color: #999;
+      font-style: italic;
+      margin-bottom: 0.5rem;
     }
     
-    .credit-contributions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    
-    .credit-contribution {
-      font-size: 0.9rem;
-      padding: 0.25rem 0.75rem;
+    .credit-contribution-item {
+      margin-bottom: 0.25rem;
     }
     
     .developers-title {
@@ -323,10 +323,10 @@
     .developers-subtitle {
       font-size: 1rem;
       text-align: center;
-      color: var(--muted-foreground);
+      color: #999;
+      font-style: italic;
       margin-bottom: 2rem;
     }
-    
     
     .footer-placeholder {
       height: 200px;
@@ -339,15 +339,15 @@
       font-weight: bold;
     }
     
+   
+    
     /* Responsive */
     @media (max-width: 992px) {
       .hero-content {
-      
         flex-direction: column;
       }
       
       .hero-title {
-      
         margin-bottom: 2rem;
         font-size: 4rem;
       }
@@ -360,6 +360,7 @@
         max-width: 100%;
         width: 100%;
       }
+      
     }
     
     @media (max-width: 768px) {
@@ -374,6 +375,21 @@
       .locations-title i {
         font-size: 3rem;
       }
+      
+      .credit-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .credit-label {
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: 0.5rem;
+      }
+      
+      .credit-content {
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -382,7 +398,6 @@
 
   <!-- Hero Section -->
   <section class="hero-section">
-    <div class="hero-overlay"><img src="${pageContext.request.contextPath}/images/ReelGood.jpg" alt="ReelGood Logo" class="hero-logo"></div>
     <div class="hero-content">
      
       <div class="hero-title">
@@ -459,25 +474,28 @@
   </section>
 
   <!-- Credits Section -->
-   <div class="credits-container">
+  
   <section class="credits-section">
     <div class="container">
       <h2 class="credits-title">Credits</h2>
       
       <div class="credits-container">
         <div class="credit-item">
-          <div class="credit-role">
-            <span class="credit-role-title">Team Leader:</span>
-            <span class="credit-person">SARTHAK BANIYA</span>
+          <div class="credit-row">
+            <div class="credit-label">Team Leader:</div>
+            <div class="credit-content">
+              <div class="credit-person">SARTHAK BANIYA</div>
+              <div class="credit-subtitle">The Chosen One</div>
+            </div>
           </div>
-          <p class="credit-subtitle">The Chosen One</p>
-          <span class="credit-role-title">Contributions</span>
-          <div class="credit-contributions">
-          
-            <span class="credit-contribution">Frontend Design</span>
-            <span class="credit-contribution">Wireframes</span>
-            <span class="credit-contribution">Report Formatting</span>
-            <span class="credit-contribution">Report Writing</span>
+          <div class="credit-row">
+            <div class="credit-label">Contribution:</div>
+            <div class="credit-content">
+              <div class="credit-contribution-item">Frontend Design</div>
+              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item">Report Formatting</div>
+              <div class="credit-contribution-item">Report Writing</div>
+            </div>
           </div>
         </div>
         
@@ -485,36 +503,46 @@
         <p class="developers-subtitle">AKA: The CodeFathers</p>
         
         <div class="credit-item">
-          <div class="credit-role">
-            <span class="credit-role-title">FrontEnd:</span>
-            <span class="credit-person">DISHANT PANJIYAR</span>
+          <div class="credit-row">
+            <div class="credit-label">FrontEnd:</div>
+            <div class="credit-content">
+              <div class="credit-person">DISHANT PANJIYAR</div>
+              <div class="credit-subtitle">500 Days of FlexBox</div>
+            </div>
           </div>
-          <p class="credit-subtitle">500 Days of FlexBox</p>
-          <div class="credit-contributions">
-            <span class="credit-contribution">Frontend Design</span>
-            <span class="credit-contribution">Wireframes</span>
-            <span class="credit-contribution">Report Formatting</span>
-            <span class="credit-contribution">Report Writing</span>
+          <div class="credit-row">
+            <div class="credit-label">Contribution:</div>
+            <div class="credit-content">
+              <div class="credit-contribution-item">Frontend Design</div>
+              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item">Report Formatting</div>
+              <div class="credit-contribution-item">Report Writing</div>
+            </div>
           </div>
         </div>
         
         <div class="credit-item">
-          <div class="credit-role">
-            <span class="credit-role-title">Full-Stack:</span>
-            <span class="credit-person">SASWAT KHATRY</span>
+          <div class="credit-row">
+            <div class="credit-label">Full-Stack:</div>
+            <div class="credit-content">
+              <div class="credit-person">SASWAT KHATRY</div>
+              <div class="credit-subtitle">The Iron Stack</div>
+            </div>
           </div>
-          <p class="credit-subtitle">The Iron Stack</p>
-          <div class="credit-contributions">
-            <span class="credit-contribution">Frontend Design</span>
-            <span class="credit-contribution">Wireframes</span>
-            <span class="credit-contribution">Report Formatting</span>
-            <span class="credit-contribution">Report Writing</span>
+          <div class="credit-row">
+            <div class="credit-label">Contribution:</div>
+            <div class="credit-content">
+              <div class="credit-contribution-item">Frontend Design</div>
+              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item">Report Formatting</div>
+              <div class="credit-contribution-item">Report Writing</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  </div>
+  
 
   <jsp:include page="user-footer.jsp"/>
   </div>

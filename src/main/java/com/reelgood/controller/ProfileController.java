@@ -25,7 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-@WebServlet({"/user/profile", "/user/profile/photo", "/user/profile/photo/delete"})
+@WebServlet({"/user/profile", "/user/profile/photo", "/user/profile/photo/delete", "/user/profile/delete-account"})
 @MultipartConfig(
     fileSizeThreshold = 2 * 1024 * 1024, // 2MB
     maxFileSize = 5 * 1024 * 1024,       // 5MB
@@ -86,6 +86,10 @@ public class ProfileController extends HttpServlet {
         }
         if ("/user/profile/photo/delete".equals(servletPath)) {
             handlePhotoDelete(request, response, user);
+            return;
+        }
+        if ("/user/profile/delete-account".equals(servletPath)) {
+            handleDeleteAccount(request, response, user);
             return;
         }
         String action = request.getParameter("action");
@@ -183,6 +187,12 @@ public class ProfileController extends HttpServlet {
                 return;
             }
             
+            // Additional security: check for malicious content
+            if (photoPart.getSubmittedFileName().contains("..") || photoPart.getSubmittedFileName().contains("/") || photoPart.getSubmittedFileName().contains("\\")) {
+                response.sendRedirect(request.getContextPath() + "/user/profile?error=invalid_filename");
+                return;
+            }
+            
             try {
                 // Compress the image before storing
                 InputStream fileContent = compressImage(photoPart.getInputStream());
@@ -237,6 +247,31 @@ public class ProfileController extends HttpServlet {
             }
         } catch (SQLException e) {
             throw new ServletException("Error deleting profile photo", e);
+        }
+    }
+
+    private void handleDeleteAccount(HttpServletRequest request, HttpServletResponse response, UserModel user)
+            throws IOException, ServletException {
+        try {
+            boolean success = userService.deleteUserById(user.getUserID());
+            if (success) {
+                request.getSession().invalidate();
+                response.sendRedirect(request.getContextPath() + "/login?account_deleted=1");
+            } else {
+                // Check if the user still exists (active bookings case)
+                if (userService.userExists(user.getUserID())) {
+                    response.sendRedirect(request.getContextPath() + "/user/profile?error=account_has_dependencies");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/user/profile?error=account_not_found");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String errorMessage = "account_delete_failed";
+            response.sendRedirect(request.getContextPath() + "/user/profile?error=" + errorMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/user/profile?error=account_delete_failed");
         }
     }
 

@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReelGood - Movies</title>
+  <title>Search Results - ReelGood</title>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/newcss/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
@@ -96,29 +96,35 @@
 </head>
 <body>
   <div class="container">
-    <h1 style="text-align:center; margin-top: 24px;">All Movies</h1>
-    <div class="movie-grid">
-      <c:forEach var="movie" items="${movies}">
-        <div class="movie-card">
-          <img src="<%= request.getContextPath() %>/movie-image?id=${movie.id}" alt="${movie.title}">
-          <c:if test="${movie.status eq 'Coming Soon'}">
-            <div class="coming-soon-badge">Coming Soon</div>
-          </c:if>
-          <div class="movie-title">${movie.title}</div>
-          <div class="movie-genre">${movie.genre}</div>
-          <div class="movie-duration">${movie.duration} min</div>
-          <div class="movie-status">${movie.status}</div>
-          <c:if test="${movie.status ne 'Coming Soon'}">
-            <div class="movie-rating">${movie.rating}/10</div>
-            <div class="movie-actions">
-            <a href="<%= request.getContextPath() %>/user/movie-details?movieId=${movie.id}" class="btn btn-primary">View Details</a>
+    <h1 style="text-align:center; margin-top: 24px; font-size: 1.1rem; font-weight: 500; color: #fff;">Search Results for '<c:out value="${searchQuery}"/>'</h1>
+    <c:choose>
+      <c:when test="${empty movies}">
+        <p style="text-align:center; color:#fff; margin-top:32px; font-size:1.2rem;">No movies found.</p>
+      </c:when>
+      <c:otherwise>
+        <div class="movie-grid">
+          <c:forEach var="movie" items="${movies}">
+            <div class="movie-card">
+              <img src="<%= request.getContextPath() %>/movie-image?id=${movie.id}" alt="${movie.title}">
+              <c:if test="${movie.status eq 'Coming Soon'}">
+                <div class="coming-soon-badge">Coming Soon</div>
+              </c:if>
+              <div class="movie-title">${movie.title}</div>
+              <div class="movie-genre">${movie.genre}</div>
+              <div class="movie-duration">${movie.duration} min</div>
+              <div class="movie-status">${movie.status}</div>
+              <c:if test="${movie.status ne 'Coming Soon'}">
+                <div class="movie-rating">${movie.rating}/10</div>
+                <div class="movie-actions">
+                  <a href="<%= request.getContextPath() %>/user/movie-details?movieId=${movie.id}" class="btn btn-primary">View Details</a>
+                </div>
+              </c:if>
             </div>
-          </c:if>
+          </c:forEach>
         </div>
-      </c:forEach>
-    </div>
+      </c:otherwise>
+    </c:choose>
   </div>
   <jsp:include page="user-footer.jsp" />
-  <script src="<%= request.getContextPath() %>/js/main.js"></script>
 </body>
 </html> 

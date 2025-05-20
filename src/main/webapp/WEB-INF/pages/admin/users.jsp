@@ -202,11 +202,6 @@
                                 </span>
                             </td>
                             <td class="action-buttons">
-                                <form method="post" action="${pageContext.request.contextPath}/admin/users" style="display:inline;">
-                                    <input type="hidden" name="action" value="delete" />
-                                    <input type="hidden" name="userId" value="${user.userID}" />
-                                    <button type="submit" class="btn btn-secondary" onclick="return confirm('Delete this user?')">Delete</button>
-                                </form>
                                 <c:if test="${user.role != '2'}">
                                     <form method="post" action="${pageContext.request.contextPath}/admin/users" style="display:inline;">
                                         <input type="hidden" name="action" value="promote" />
@@ -221,18 +216,5 @@
             </table>
         </div>
     </div>
-
-    <form id="deleteUserForm" method="post" style="display:none;">
-        <input type="hidden" name="action" value="delete" />
-        <input type="hidden" name="userId" id="deleteUserId" />
-    </form>
-    <script>
-        function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                document.getElementById('deleteUserId').value = userId;
-                document.getElementById('deleteUserForm').submit();
-            }
-        }
-    </script>
 </body>
 </html> 

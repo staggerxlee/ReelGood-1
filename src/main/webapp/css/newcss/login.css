@@ -144,10 +144,6 @@ body {
 }
 
 /* Forgot Password */
-.login-forgot-password {
-  text-align: center;
-  margin-bottom: 1.25rem;
-}
 
 .login-forgot-password a {
   color: var(--muted-foreground);

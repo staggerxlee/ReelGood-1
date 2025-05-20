@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="user-navbar.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,6 @@
     <title>My Profile - ReelGood</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/newcss/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <jsp:include page="user-navbar.jsp" />
 </head>
 
 <body>
@@ -81,6 +81,39 @@
                             <button type="submit" class="btn btn-primary">Update Profile</button>
                         </div>
                     </form>
+                    <!-- Account Delete Section (only in My Profile) -->
+                    <div class="account-delete-section" style="margin-top: 2.5rem; padding: 2rem; background: #2a1616; border-radius: 12px; box-shadow: 0 2px 8px rgba(255,71,87,0.10);">
+                      <h2 style="color: #ff4757; margin-bottom: 1rem;">Delete Account</h2>
+                      <c:if test="${param.error == 'account_delete_failed'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Failed to delete account. Please try again later.
+                        </div>
+                      </c:if>
+                      <c:if test="${param.error == 'account_not_found'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Account not found. Please try logging in again.
+                        </div>
+                      </c:if>
+                      <c:if test="${param.error == 'account_has_dependencies'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Cannot delete account because it has active bookings. Please cancel all bookings first.
+                        </div>
+                      </c:if>
+                      <p style="color: #fff; margin-bottom: 1.5rem;">Warning: Deleting your account is <b>permanent</b> and cannot be undone. All your data, bookings, and profile information will be lost forever.</p>
+                      <button id="deleteAccountBtn" style="background: #ff4757; color: #fff; border: none; padding: 12px 32px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer;">Delete Account</button>
+                    </div>
+                    <!-- Delete Account Modal -->
+                    <div id="deleteAccountModal" class="profile-modal-bg">
+                      <div class="profile-modal">
+                        <div class="modal-icon error"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2>Are you sure?</h2>
+                        <p>This action will permanently delete your account and all associated data. This cannot be undone.</p>
+                        <form id="deleteAccountForm" action="<%= request.getContextPath() %>/user/profile/delete-account" method="post">
+                          <button type="submit" class="modal-btn delete">Yes, Delete</button>
+                          <button type="button" id="cancelDeleteAccountBtn" class="modal-btn cancel">Cancel</button>
+                        </form>
+                      </div>
+                    </div>
                 </div>
                 <div id="profile-bookings-section" class="profile-section-content">
                     <h2>My Bookings</h2>
@@ -214,6 +247,9 @@
         .profile-main {
             flex: 1;
             padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            background: #231818;
+            border-radius: 16px;
         }
         .profile-section-content {
             display: none;
@@ -568,6 +604,14 @@
                     photoPreview.style.display = 'none';
                     photoPlaceholder.style.display = 'block';
                 }
+            }
+            // Delete account modal logic (restored)
+            var deleteBtn = document.getElementById('deleteAccountBtn');
+            var modal = document.getElementById('deleteAccountModal');
+            var cancelBtn = document.getElementById('cancelDeleteAccountBtn');
+            if (deleteBtn && modal && cancelBtn) {
+                deleteBtn.onclick = function() { modal.style.display = 'flex'; };
+                cancelBtn.onclick = function() { modal.style.display = 'none'; };
             }
         });
         // Profile photo preview and modal logic

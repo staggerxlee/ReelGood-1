@@ -23,7 +23,8 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             min-width: 1200px;
         }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header
+        { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;}
         .header h1 { font-size: 32px; color: #333; font-weight: 600; }
         .stats-grid { 
             display: grid; 
@@ -155,7 +156,7 @@
         <jsp:include page="components/sidebar.jsp" />
         <div class="main-content">
             <div class="header">
-                <h1>Admin Dashboard</h1>
+                <h1>Hello, ${user.username}</h1>
             </div>
             <div class="stats-grid">
                 <div class="stat-card">

@@ -210,4 +210,58 @@ public class UserService {
             }
         }
     }
+
+    public boolean deleteUserById(int userId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            // Delete all contact messages for this user
+            String deleteMessagesSql = "DELETE FROM contactmessage WHERE UserID = ?";
+            try (PreparedStatement msgStmt = conn.prepareStatement(deleteMessagesSql)) {
+                msgStmt.setInt(1, userId);
+                msgStmt.executeUpdate();
+            }
+            // Check for any non-cancelled bookings
+            String checkSql = "SELECT COUNT(*) FROM bookings WHERE UserID = ? AND status != 'Cancelled'";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, userId);
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1);
+                        System.out.println("[DEBUG] UserID: " + userId + ", Non-cancelled bookings: " + count);
+                        if (count > 0) {
+                            // There are active bookings, do not allow deletion
+                            return false;
+                        }
+                    }
+                }
+            }
+            // Delete all bookings (even cancelled)
+            String deleteBookingsSql = "DELETE FROM bookings WHERE UserID = ?";
+            try (PreparedStatement delStmt = conn.prepareStatement(deleteBookingsSql)) {
+                delStmt.setInt(1, userId);
+                delStmt.executeUpdate();
+            }
+            // Delete the user
+            String deleteUserSql = "DELETE FROM user WHERE UserID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(deleteUserSql)) {
+                stmt.setInt(1, userId);
+                int affectedRows = stmt.executeUpdate();
+                return affectedRows > 0;
+            }
+        }
+    }
+
+    public boolean userExists(int userId) throws SQLException {
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "SELECT COUNT(*) FROM user WHERE UserID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, userId);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

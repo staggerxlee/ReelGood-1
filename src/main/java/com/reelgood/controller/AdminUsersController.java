@@ -52,24 +52,6 @@ public class AdminUsersController extends HttpServlet {
         }
 
         String action = request.getParameter("action");
-        if ("delete".equals(action)) {
-            String userId = request.getParameter("userId");
-            if (userId != null) {
-                AdminService adminService = new AdminService();
-                boolean deleted = false;
-                try {
-                    deleted = adminService.deleteUserById(Integer.parseInt(userId));
-                } catch (NumberFormatException e) {
-                    System.out.println("[DEBUG] Invalid userId for deletion: " + userId);
-                }
-                if (deleted) {
-                    response.sendRedirect(request.getContextPath() + "/admin/users?success=User deleted successfully");
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/admin/users?error=Failed to delete user");
-                }
-                return;
-            }
-        }
         if ("promote".equals(action)) {
             String userId = request.getParameter("userId");
             if (userId != null) {

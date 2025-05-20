@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,19 @@
         background-color: #181012 !important;
       }
     </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    	  const passwordInput = document.getElementById('login-password');
+    	  const toggleBtn = document.querySelector('.login-toggle-password');
+    	  if (passwordInput && toggleBtn) {
+    	    toggleBtn.addEventListener('click', function() {
+    	      const isPassword = passwordInput.type === 'password';
+    	      passwordInput.type = isPassword ? 'text' : 'password';
+    	      this.classList.toggle('fa-eye');
+    	      this.classList.toggle('fa-eye-slash');
+    	    });
+    	  }
+    	});</script>
 </head>
 <body>
     <div class="login-page">
@@ -60,6 +74,42 @@
             </div>
         </div>
     </div>
+    <c:if test="${param.error == 'nouser'}">
+      <div id="login-error-popup" style="position: fixed; top: 32px; left: 50%; transform: translateX(-50%); background: #2a1616; color: #ff4757; padding: 18px 36px; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); font-size: 1.08rem; z-index: 9999; text-align: center;">
+        <i class="fa fa-exclamation-circle" style="margin-right: 8px;"></i>
+        No user found with these credentials.
+      </div>
+      <script>
+        setTimeout(function() {
+          var popup = document.getElementById('login-error-popup');
+          if (popup) popup.style.display = 'none';
+        }, 3500);
+      </script>
+    </c:if>
+    <c:if test="${param.account_deleted == '1'}">
+      <div id="login-success-popup" style="position: fixed; top: 32px; left: 50%; transform: translateX(-50%); background: #231818; color: #4BB543; padding: 18px 36px; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); font-size: 1.08rem; z-index: 9999; text-align: center;">
+        <i class="fa fa-check-circle" style="margin-right: 8px;"></i>
+        Your account has been deleted successfully.
+      </div>
+      <script>
+        setTimeout(function() {
+          var popup = document.getElementById('login-success-popup');
+          if (popup) popup.style.display = 'none';
+        }, 3500);
+      </script>
+    </c:if>
+    <c:if test="${param.registered == 'true'}">
+      <div id="login-success-popup" style="position: fixed; top: 32px; left: 50%; transform: translateX(-50%); background: #231818; color: #4BB543; padding: 18px 36px; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); font-size: 1.08rem; z-index: 9999; text-align: center;">
+        <i class="fa fa-check-circle" style="margin-right: 8px;"></i>
+        Account created successfully! Please log in.
+      </div>
+      <script>
+        setTimeout(function() {
+          var popup = document.getElementById('login-success-popup');
+          if (popup) popup.style.display = 'none';
+        }, 3500);
+      </script>
+    </c:if>
     <script src="<%= request.getContextPath() %>/js/main.js"></script>
     <script src="<%= request.getContextPath() %>/js/login.js"></script>
 </body>

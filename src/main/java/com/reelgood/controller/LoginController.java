@@ -13,10 +13,8 @@ import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.sql.SQLException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
 import java.util.Arrays;
 
-@WebServlet(asyncSupported = true)
 @MultipartConfig
 public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -109,7 +107,9 @@ public class LoginController extends HttpServlet {
 
                     return;
                 } else {
-                    errorMessage = "Invalid email or password";
+                    // No user found
+                    response.sendRedirect(request.getContextPath() + "/login?error=nouser");
+                    return;
                 }
             } catch (SQLException e) {
                 errorMessage = "Database error: " + e.getMessage();

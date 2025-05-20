@@ -234,4 +234,35 @@ public class MovieService {
             }
         }
     }
+
+    public List<MovieModel> searchMoviesByTitle(String query) {
+        List<MovieModel> movies = new ArrayList<>();
+        try (Connection conn = DbConfig.getDbConnection()) {
+            String sql = "SELECT MovieID, MovieTitle, ReleaseDate, Duration, Genre, Language, Rating, Image, Status, Description, Cast, Director FROM movie WHERE LOWER(MovieTitle) LIKE ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, "%" + query.toLowerCase() + "%");
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        MovieModel movie = new MovieModel();
+                        movie.setId(rs.getInt("MovieID"));
+                        movie.setTitle(rs.getString("MovieTitle"));
+                        movie.setReleaseDate(rs.getDate("ReleaseDate"));
+                        movie.setDuration(rs.getString("Duration"));
+                        movie.setGenre(rs.getString("Genre"));
+                        movie.setLanguage(rs.getString("Language"));
+                        movie.setRating(rs.getInt("Rating"));
+                        movie.setImage(rs.getBlob("Image"));
+                        movie.setStatus(rs.getString("Status"));
+                        movie.setDescription(rs.getString("Description"));
+                        movie.setCast(rs.getString("Cast"));
+                        movie.setDirector(rs.getString("Director"));
+                        movies.add(movie);
+                    }
+                }
+            }
+            return movies;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching movies: " + e.getMessage(), e);
+        }
+    }
 }

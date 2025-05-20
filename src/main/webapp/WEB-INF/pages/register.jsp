@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/newcss/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    	  // For all password fields with an eye icon
+    	  document.querySelectorAll('.login-input-group').forEach(function(group) {
+    	    var input = group.querySelector('input[type="password"]');
+    	    var toggle = group.querySelector('.login-toggle-password');
+    	    if (input && toggle) {
+    	      toggle.addEventListener('click', function() {
+    	        const isPassword = input.type === 'password';
+    	        input.type = isPassword ? 'text' : 'password';
+    	        this.classList.toggle('fa-eye');
+    	        this.classList.toggle('fa-eye-slash');
+    	      });
+    	    }
+    	  });
+    	}); </script>
 </head>
 <body>
     <div class="container">
