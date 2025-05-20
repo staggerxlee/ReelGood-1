@@ -5,7 +5,7 @@
   background-color: var(--footer);
   padding: 3rem 1rem;
   margin-top: 3rem;
-  border-radius: 0;
+  border-radius: 50px;
 }
 .footer-content {
   margin-bottom: 0;
@@ -83,9 +83,9 @@
     <div class="social-links">
       <p>Follow Us:</p>
       <div class="social-icons">
-        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.x.com/" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
       </div>
     </div>
     <div class="footer-links">

@@ -102,12 +102,12 @@
     }
     
     .hero-content {
+    margin-top:300px;
       position: relative;
       z-index: 2;
       display: flex;
       width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
+      
     }
     
     .hero-title {
@@ -141,6 +141,14 @@
       font-size: 1.2rem;
       color: var(--primary);
     }
+    
+       .location-link {
+      text-align: left;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+    
     
     /* Locations Section */
     .locations-section {
@@ -328,10 +336,12 @@
     /* Responsive */
     @media (max-width: 992px) {
       .hero-content {
+      
         flex-direction: column;
       }
       
       .hero-title {
+      
         margin-bottom: 2rem;
         font-size: 4rem;
       }
@@ -366,13 +376,15 @@
 
   <!-- Hero Section -->
   <section class="hero-section">
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay"><img src="${pageContext.request.contextPath}/images/ReelGood.jpg" alt="ReelGood Logo" class="hero-logo"></div>
     <div class="hero-content">
+     
       <div class="hero-title">
+     
         WHO<br>WE<br>ARE
       </div>
       <div class="hero-description">
-        <img src="${pageContext.request.contextPath}/images/ReelGood.jpg" alt="ReelGood Logo" class="hero-logo">
+        
         <p>At ReelGood, we believe that the magic of cinema should begin long before the opening credits roll. Our mission is simple: to make your movie-going experience faster, easier, and more enjoyable.</p>
         <br>
         <p>Founded with a passion for both technology and entertainment, ReelGood is an online platform designed to streamline the way you discover and book movie tickets. Whether you're planning a night out with friends or a spontaneous solo trip to the cinema, we're here to make sure you never miss a show. We're more than just a booking system – we're movie lovers just like you. That's why we built a platform that not only handles the logistics but also enhances the anticipation. With a sleek interface, smart filters, and intuitive features, ReelGood is built to help you find the right movie, at the right time, at the right place.</p>
@@ -401,6 +413,10 @@
             <p class="location-description">
               Located in the bustling heart of Baneshwor, this hall offers a spacious and well-equipped venue suitable for conferences, meetings, seminars, and social events. It features modern audio-visual equipment, comfortable seating arrangements, and easy accessibility with ample parking nearby. Ideal for both corporate and community gatherings.
             </p>
+            <div class="location-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <a href="https://maps.app.goo.gl/uRGKDYCp4yRjugJDA">View Location</a>
+            </div>
           </div>
         </div>
         
@@ -411,6 +427,10 @@
             <p class="location-description">
               Situated in the vibrant commercial area of Putalisadak, this hall is perfect for workshops, training sessions, and medium-sized events. It boasts a professional ambiance with excellent lighting and sound systems, making it an excellent choice for business meetings and cultural programs. Conveniently located with good public transport links.
             </p>
+             <div class="location-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <a href="https://maps.app.goo.gl/UqNTAEGN5Nzi4mJx7">View Location</a>
+            </div>
           </div>
         </div>
         
@@ -421,6 +441,10 @@
             <p class="location-description">
               Nestled in the historic and culturally rich area of Bagbazar, this hall provides a charming and versatile space for various events including cultural shows, private functions, and small conferences. It features traditional decor blended with modern amenities to offer a unique atmosphere. Easily accessible and close to major landmarks.
             </p>
+            <div class="location-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <a href="https://maps.app.goo.gl/g1s6mU6pMHWMPVvd7">View Location</a>
+            </div>
           </div>
         </div>
         
