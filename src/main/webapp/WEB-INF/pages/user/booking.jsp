@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <jsp:include page="user-navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,35 +11,31 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    .seat-icon.available, .seat.available {
-      background: #2196f3 !important;
-      border: 2px solid #fff;
-      box-shadow: 0 0 6px #2196f3, 0 2px 8px rgba(0,0,0,0.15);
-    }
+     
+     
     .seat {
       width: 32px;
       height: 32px;
       margin: 4px;
       border-radius: 6px;
       display: inline-block;
-      background: #2196f3; /* Bright blue for available */
-      border: 2px solid #fff;
+      background: #081616; 
+      
       cursor: pointer;
       transition: background 0.2s, border 0.2s;
     }
     .seat.selected {
-      background: #ff4757 !important;
-      border: 2px solid #b71c1c;
+      background: #B7DB97;
+      
     }
     .seat.taken {
-      background: #bdbdbd !important;
-      border: 2px solid #888;
+      background: #f62428;
       cursor: not-allowed;
     }
   </style>
 </head>
 <body>
-  <jsp:include page="user-navbar.jsp" />
+
   <div class="container mt-4">
     <a href="<%= request.getContextPath() %>/user/movie-details?movieId=${movie.id}" class="back-link" id="back-to-movie">← Back to movie</a>
     <div class="booking-layout">

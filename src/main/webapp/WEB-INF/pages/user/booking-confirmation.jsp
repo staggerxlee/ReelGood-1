@@ -45,10 +45,10 @@
     
     .booking-id {
       font-size: 18px;
-      color: #ff4757;
+      color: #081616;
       font-weight: 600;
       margin-bottom: 20px;
-      background-color: #ffe9eb;
+      background-color: #B7DB97;
       padding: 10px 20px;
       border-radius: 5px;
       display: inline-block;

@@ -1,9 +1,9 @@
 /* Base Styles */
 :root {
   --primary: #f62428;
-  --primary-hover: #d91f23;
+  --primary-hover: rgb(128, 64, 64);
   --primary-foreground: #ffffff;
-  --background: #2a1010;
+  --background: #081616;
   --foreground: #ffffff;
   --muted: #3a1c1c;
   --muted-foreground: #b0a8a8;
@@ -557,6 +557,7 @@ header {
   background-color: var(--primary);
   border-color: var(--primary);
   color: var(--primary-foreground);
+  font-size: 40px;
 }
 
 .tab-content {
@@ -797,11 +798,12 @@ header {
 }
 
 .seat-icon.available {
+	 background: #081616;
   border: 1px solid var(--muted-foreground);
 }
 
 .seat-icon.selected {
-  background-color: var(--primary);
+  background-color: #B7DB97;
 }
 
 .seat-icon.taken {
@@ -1126,7 +1128,7 @@ header {
 
 /* Movie Details Page Styling */
 body.movie-details-page {
-  background-color: #3e0000;
+  background-color: #081616;
   color: #fff;
 }
 
@@ -1278,7 +1280,7 @@ body.movie-details-page {
 }
 
 .time-slot:hover {
-  background-color: #e50914;
+ background-color: rgb(128, 64, 64) ;
 }
 
 .theater-info {

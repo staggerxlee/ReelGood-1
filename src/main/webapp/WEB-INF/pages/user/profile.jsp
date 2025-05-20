@@ -9,166 +9,6 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/newcss/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
-<body>
-    <div class="page-wrapper">
-        
-        
-        <div class="container profile-layout">
-            <div class="profile-sidebar">
-                <ul class="sidebar-menu">
-                    <li><a href="#" class="sidebar-link active" data-section="info" onclick="showProfileSection('info'); return false;"><i class="fas fa-user"></i> My Profile</a></li>
-                    <li><a href="#" class="sidebar-link" data-section="bookings" onclick="showProfileSection('bookings'); return false;"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
-                    <li>
-                        <form action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
-                            <button type="submit" class="btn btn-danger btn-block" style="width: 100%; margin-top: 10px;">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            <div class="profile-main">
-                <div id="profile-info-section" class="profile-section-content active">
-                    <!-- Profile Photo Upload UI -->
-                    <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="profile-photo-circle">
-                            <img id="profilePhotoPreview" src="<%= request.getContextPath() %>/user-photo?id=${user.userID}" alt="Profile Photo" />
-                            <span id="profilePhotoPlaceholder"><i class="fas fa-user"></i></span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                                <input type="file" id="profilePhotoInput" name="profilePhoto" accept="image/*" style="display: none;" form="photoUploadForm" />
-                                <span style="background: #ff4757; color: #fff; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;">Upload Photo</span>
-                            </label>
-                            <button type="button" id="deletePhotoBtn" style="background: #fff; color: #ff4757; border: 1.5px solid #ff4757; padding: 8px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;">Delete Photo</button>
-                        </div>
-                    </div>
-                    <!-- Hidden form for photo upload -->
-                    <form id="photoUploadForm" action="<%= request.getContextPath() %>/user/profile/photo" method="post" enctype="multipart/form-data" style="display:none;">
-                        <input type="file" id="hiddenProfilePhotoInput" name="profilePhoto" accept="image/*" />
-                    </form>
-                    <!-- Modal for photo confirmation -->
-                    <div id="photoConfirmModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
-                      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
-                        <div style="font-size:48px;color:#ffcc00;margin-bottom:12px;"><i class="fas fa-question-circle"></i></div>
-                        <h2 style="margin-bottom:12px;">Confirm Profile Picture?</h2>
-                        <p style="margin-bottom:24px;">Do you want to set this as your profile photo?</p>
-                        <button id="confirmPhotoBtn" style="background:#4BB543;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;margin-right:10px;">Confirm</button>
-                        <button id="cancelPhotoBtn" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Cancel</button>
-                      </div>
-                    </div>
-                    <h2>Personal Information</h2>
-                    <form action="<%= request.getContextPath() %>/user/profile" method="post" class="profile-form" enctype="multipart/form-data">
-                        <input type="hidden" name="action" value="update">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" value="${user.username}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" value="${user.email}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" value="${user.phone}">
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <textarea id="address" name="address" rows="3">${user.address}</textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
-                        </div>
-                    </form>
-                    <!-- Account Delete Section (only in My Profile) -->
-                    <div class="account-delete-section" style="margin-top: 2.5rem; padding: 2rem; background: #2a1616; border-radius: 12px; box-shadow: 0 2px 8px rgba(255,71,87,0.10);">
-                      <h2 style="color: #ff4757; margin-bottom: 1rem;">Delete Account</h2>
-                      <c:if test="${param.error == 'account_delete_failed'}">
-                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
-                          Failed to delete account. Please try again later.
-                        </div>
-                      </c:if>
-                      <c:if test="${param.error == 'account_not_found'}">
-                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
-                          Account not found. Please try logging in again.
-                        </div>
-                      </c:if>
-                      <c:if test="${param.error == 'account_has_dependencies'}">
-                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
-                          Cannot delete account because it has active bookings. Please cancel all bookings first.
-                        </div>
-                      </c:if>
-                      <p style="color: #fff; margin-bottom: 1.5rem;">Warning: Deleting your account is <b>permanent</b> and cannot be undone. All your data, bookings, and profile information will be lost forever.</p>
-                      <button id="deleteAccountBtn" style="background: #ff4757; color: #fff; border: none; padding: 12px 32px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer;">Delete Account</button>
-                    </div>
-                    <!-- Delete Account Modal -->
-                    <div id="deleteAccountModal" class="profile-modal-bg">
-                      <div class="profile-modal">
-                        <div class="modal-icon error"><i class="fas fa-exclamation-triangle"></i></div>
-                        <h2>Are you sure?</h2>
-                        <p>This action will permanently delete your account and all associated data. This cannot be undone.</p>
-                        <form id="deleteAccountForm" action="<%= request.getContextPath() %>/user/profile/delete-account" method="post">
-                          <button type="submit" class="modal-btn delete">Yes, Delete</button>
-                          <button type="button" id="cancelDeleteAccountBtn" class="modal-btn cancel">Cancel</button>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div id="profile-bookings-section" class="profile-section-content">
-                    <h2>My Bookings</h2>
-                    <c:if test="${not empty success}">
-                        <div class="alert alert-success">${success}</div>
-                    </c:if>
-                    <c:if test="${not empty error}">
-                        <div class="alert alert-danger">${error}</div>
-                    </c:if>
-                    <c:choose>
-                        <c:when test="${empty bookings}">
-                            <p class="text-muted">No bookings found.</p>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="bookings-list">
-                                <c:forEach var="booking" items="${bookings}">
-                                    <div class="booking-card">
-                                        <div class="booking-header">
-                                            <h3>${booking.movieTitle}</h3>
-                                            <span class="booking-status ${booking.status.toLowerCase()}">${booking.status}</span>
-                                        </div>
-                                        <div class="booking-details">
-                                            <p><i class="fas fa-calendar"></i> ${booking.showDate}</p>
-                                            <p><i class="fas fa-clock"></i> ${booking.showTime}</p>
-                                            <p><i class="fas fa-map-marker-alt"></i> Theater: ${booking.theaterLocation}</p>
-                                            <p><i class="fas fa-chair"></i> Seats: ${booking.seats}</p>
-                                            <p><i class="fas fa-ticket-alt"></i> Number of Seats: ${booking.numberOfSeats}</p>
-                                            <p><i class="fas fa-dollar-sign"></i> Total Amount: ₹${booking.totalAmount}</p>
-                                            <p><i class="fas fa-receipt"></i> Booking Fee: ₹${booking.bookingFee}</p>
-                                            <p><i class="fas fa-calendar-alt"></i> Booked on: ${booking.createdAt}</p>
-                                        </div>
-                                        <c:if test="${booking.status eq 'Confirmed'}">
-                                            <div class="booking-actions">
-                                                <form action="${pageContext.request.contextPath}/user/profile" method="post" style="display: inline;">
-                                                    <input type="hidden" name="action" value="cancel">
-                                                    <input type="hidden" name="bookingId" value="${booking.id}">
-                                                    <button type="submit" class="btn btn-danger"
-                                                            onclick="return confirm('Are you sure you want to cancel this booking?')">
-                                                        Cancel Booking
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </c:if>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
-        </div>
-
-        <jsp:include page="user-footer.jsp" />
-    </div>
-
     <style>
         body {
             background: #2a1616;
@@ -219,8 +59,13 @@
             transition: background 0.18s, color 0.18s, box-shadow 0.18s;
             box-shadow: none;
         }
-        .profile-sidebar a.sidebar-link.active, .profile-sidebar a.sidebar-link:hover {
-            background: #ff4757;
+        
+        a.sidebar-link.active{
+        background: #373535;
+        }
+        
+       a.sidebar-link:hover {
+            background: #081616;
             color: #fff;
             box-shadow: 0 2px 8px rgba(255,71,87,0.10);
         }
@@ -292,8 +137,8 @@
         .form-group textarea {
             width: 100%;
             padding: 0.5rem;
-            border: 1px solid #444;
-            border-radius: 4px;
+            border: 3px solid #0C2121;
+            border-radius: 50px;
             background: #231818;
             color: #fff;
         }
@@ -449,6 +294,167 @@
             height: 100%;
         }
     </style>
+
+<body>
+    <div class="page-wrapper">
+        
+        
+        <div class="container profile-layout">
+            <div class="profile-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="sidebar-link active" data-section="info" onclick="showProfileSection('info'); return false;"><i class="fas fa-user"></i> My Profile</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="bookings" onclick="showProfileSection('bookings'); return false;"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
+                    <li>
+                        <form action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-block" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="profile-main">
+                <div id="profile-info-section" class="profile-section-content active">
+                    <!-- Profile Photo Upload UI -->
+                    <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="profile-photo-circle">
+                            <img id="profilePhotoPreview" src="<%= request.getContextPath() %>/user-photo?id=${user.userID}" alt="Profile Photo" />
+                            <span id="profilePhotoPlaceholder"><i class="fas fa-user"></i></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="file" id="profilePhotoInput" name="profilePhoto" accept="image/*" style="display: none;" form="photoUploadForm" />
+                                <span style="background: #282626; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; font-weight: 500; cursor: pointer;">Upload Photo</span>
+                            </label>
+                            <button type="button" id="deletePhotoBtn" style="background: #f62428; color: white;  padding: 8px 20px; border-radius: 50px; font-weight: 500; cursor: pointer;">Delete Photo</button>
+                        </div>
+                    </div>
+                    <!-- Hidden form for photo upload -->
+                    <form id="photoUploadForm" action="<%= request.getContextPath() %>/user/profile/photo" method="post" enctype="multipart/form-data" style="display:none;">
+                        <input type="file" id="hiddenProfilePhotoInput" name="profilePhoto" accept="image/*" />
+                    </form>
+                    <!-- Modal for photo confirmation -->
+                    <div id="photoConfirmModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+                      <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+                        <div style="font-size:48px;color:#ffcc00;margin-bottom:12px;"><i class="fas fa-question-circle"></i></div>
+                        <h2 style="margin-bottom:12px;">Confirm Profile Picture?</h2>
+                        <p style="margin-bottom:24px;">Do you want to set this as your profile photo?</p>
+                        <button id="confirmPhotoBtn" style="background:#4BB543;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;margin-right:10px;">Confirm</button>
+                        <button id="cancelPhotoBtn" style="background:#ff4757;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-weight:500;cursor:pointer;">Cancel</button>
+                      </div>
+                    </div>
+                    <h2>Personal Information</h2>
+                    <form action="<%= request.getContextPath() %>/user/profile" method="post" class="profile-form" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="update">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" value="${user.username}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="${user.email}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" value="${user.phone}">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3">${user.address}</textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </div>
+                    </form>
+                    <!-- Account Delete Section (only in My Profile) -->
+                    <div class="account-delete-section" style="margin-top: 2.5rem; padding: 2rem; background: #282626; border-radius: 12px; box-shadow: 0 2px 8px rgba(255,71,87,0.10);">
+                      <h2 style="color: #ff4757; margin-bottom: 1rem;">Delete Account</h2>
+                      <c:if test="${param.error == 'account_delete_failed'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Failed to delete account. Please try again later.
+                        </div>
+                      </c:if>
+                      <c:if test="${param.error == 'account_not_found'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Account not found. Please try logging in again.
+                        </div>
+                      </c:if>
+                      <c:if test="${param.error == 'account_has_dependencies'}">
+                        <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
+                          Cannot delete account because it has active bookings. Please cancel all bookings first.
+                        </div>
+                      </c:if>
+                      <p style="color: #fff; margin-bottom: 1.5rem;">Warning: Deleting your account is <b>permanent</b> and cannot be <b>undone.</b> All your data, bookings, and profile information will be <b><i>permanently deleted.</i></b></p>
+                      <button id="deleteAccountBtn" style="background: #ff4757; color: #fff; border: none; padding: 12px 32px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer;">Delete Account</button>
+                    </div>
+                    <!-- Delete Account Modal -->
+                    <div id="deleteAccountModal" class="profile-modal-bg">
+                      <div class="profile-modal">
+                        <div class="modal-icon error"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2>Are you sure?</h2>
+                        <p>This action will permanently delete your account and all associated data. This cannot be undone.</p>
+                        <form id="deleteAccountForm" action="<%= request.getContextPath() %>/user/profile/delete-account" method="post">
+                          <button type="submit" class="modal-btn delete">Yes, Delete</button>
+                          <button type="button" id="cancelDeleteAccountBtn" class="modal-btn cancel">Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+                <div id="profile-bookings-section" class="profile-section-content">
+                    <h2>My Bookings</h2>
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success">${success}</div>
+                    </c:if>
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
+                    </c:if>
+                    <c:choose>
+                        <c:when test="${empty bookings}">
+                            <p class="text-muted">No bookings found.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="bookings-list">
+                                <c:forEach var="booking" items="${bookings}">
+                                    <div class="booking-card">
+                                        <div class="booking-header">
+                                            <h3>${booking.movieTitle}</h3>
+                                            <span class="booking-status ${booking.status.toLowerCase()}">${booking.status}</span>
+                                        </div>
+                                        <div class="booking-details">
+                                            <p><i class="fas fa-calendar"></i> ${booking.showDate}</p>
+                                            <p><i class="fas fa-clock"></i> ${booking.showTime}</p>
+                                            <p><i class="fas fa-map-marker-alt"></i> Theater: ${booking.theaterLocation}</p>
+                                            <p><i class="fas fa-chair"></i> Seats: ${booking.seats}</p>
+                                            <p><i class="fas fa-ticket-alt"></i> Number of Seats: ${booking.numberOfSeats}</p>
+                                            <p><i class="fas fa-dollar-sign"></i> Total Amount: ₹${booking.totalAmount}</p>
+                                            <p><i class="fas fa-receipt"></i> Booking Fee: ₹${booking.bookingFee}</p>
+                                            <p><i class="fas fa-calendar-alt"></i> Booked on: ${booking.createdAt}</p>
+                                        </div>
+                                        <c:if test="${booking.status eq 'Confirmed'}">
+                                            <div class="booking-actions">
+                                                <form action="${pageContext.request.contextPath}/user/profile" method="post" style="display: inline;">
+                                                    <input type="hidden" name="action" value="cancel">
+                                                    <input type="hidden" name="bookingId" value="${booking.id}">
+                                                    <button type="submit" class="btn btn-danger"
+                                                            onclick="return confirm('Are you sure you want to cancel this booking?')">
+                                                        Cancel Booking
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </div>
+
+        <jsp:include page="user-footer.jsp" />
+    </div>
+
+
     <!-- Profile Update Success Modal -->
     <div id="profileSuccessModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
       <div style="background:#231818;color:#fff;padding:32px 24px;border-radius:12px;max-width:350px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">

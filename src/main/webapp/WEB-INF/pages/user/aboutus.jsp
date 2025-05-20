@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="user-navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -394,9 +395,7 @@
   </style>
 </head>
 <body>
-  <jsp:include page="user-navbar.jsp"/>
-
-  <!-- Hero Section -->
+    <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
      

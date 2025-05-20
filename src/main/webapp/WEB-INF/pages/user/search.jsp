@@ -96,10 +96,11 @@
 </head>
 <body>
   <div class="container">
-    <h1 style="text-align:center; margin-top: 24px; font-size: 1.1rem; font-weight: 500; color: #fff;">Search Results for '<c:out value="${searchQuery}"/>'</h1>
+    <h1 style="text-align:center; margin-top: 24px; margin-bottom: 50px; font-size: 3rem; font-weight: 500; color: #fff;">Search Results for '<c:out value="${searchQuery}"/>'</h1>
     <c:choose>
       <c:when test="${empty movies}">
-        <p style="text-align:center; color:#fff; margin-top:32px; font-size:1.2rem;">No movies found.</p>
+        <p style="text-align:center; color:#fff; margin-top:32px; font-size:1.4rem;">No movies found.</p>
+        <p style="text-align:center; color:#fff;  font-size:0.8rem; opacity:50%;"><i>May the results be with you... next time.</i></p>
       </c:when>
       <c:otherwise>
         <div class="movie-grid">

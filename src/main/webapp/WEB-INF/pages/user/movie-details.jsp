@@ -87,8 +87,7 @@
     }
     
     .time-slot.selectable:hover {
-      background-color: #f5f5f5;
-      border-color: #ff4757;
+      background-color: #B7DB97;
     }
     
     .time-slot.selected {
@@ -274,7 +273,6 @@
                 <div style="margin-top: 5px;">
                   <a href="<%= request.getContextPath() %>/user/booking?scheduleId=${todaySchedules[0].scheduleId}" 
                      style="text-decoration: underline; color: #0066cc; font-size: 11px;">
-                    Debug: Test booking page with first schedule
                   </a>
                 </div>
               </c:if>

@@ -38,7 +38,7 @@
             <div class="login-form-container">    
                 <div class="login-form-section active" id="login-section">
                     <picture>
-                        <img src="<%= request.getContextPath() %>/images/ReelGood.jpg" alt="logo" style="width: 200px; height: 200px;" class="center"> 
+                        <img src="<%= request.getContextPath() %>/images/ReelGood.jpg" alt="logo" style="width: 200px; height: auto;" class="center"> 
                     </picture>
                     <form id="login-form" action="<%= request.getContextPath() %>/login" method="post">
                         <input type="hidden" name="redirect" value="<%= request.getContextPath() %>/user/index">

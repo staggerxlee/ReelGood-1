@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <jsp:include page="user-navbar.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +44,7 @@
     .summary-header h2 {
       margin: 0;
       font-size: 18px;
-      color: #333;
+      color: white;
     }
     
     .summary-content {
@@ -53,7 +54,7 @@
     .summary-footer {
       padding: 15px 20px;
       border-top: 1px solid #eee;
-      background: #f9f9f9;
+      background: var(--footer);
     }
     
     .movie-info-summary h3 {
@@ -175,13 +176,13 @@
     
     .payment-method:hover {
       border-color: #ccc;
-      background: #f9f9f9;
+      background: #B7DB97;
     }
     
     .payment-method.selected {
-      border-color: #ff4757;
+      border-color: #B7DB97;
       background: #2a1616;
-      color: #fff;
+      color: #B7DB97;
     }
     
     .payment-method-header {
@@ -215,13 +216,6 @@
       display: none;
     }
     
-    .payment-method:hover .payment-method-description {
-      display: block;
-      background: #2a1616;
-      border-left: 3px solid #ff4757;
-      padding-left: 53px;
-      margin-top: 12px;
-    }
     
     .card-form {
       margin-top: 15px;
@@ -294,7 +288,7 @@
   </style>
 </head>
 <body>
-  <jsp:include page="user-navbar.jsp" />
+
   
   <div class="container">
     <span class="back-link disabled" style="color: #aaa; cursor: not-allowed; display: inline-block; margin-bottom: 10px;">
@@ -322,9 +316,7 @@
               </div>
               <label for="card-payment" class="payment-method-title">Credit / Debit Card</label>
             </div>
-            <div class="payment-method-description">
-              Pay securely using your credit or debit card.
-            </div>
+            
           </div>
           
           <div class="payment-method" data-method="upi">
@@ -335,9 +327,7 @@
               </div>
               <label for="upi-payment" class="payment-method-title">UPI Payment</label>
             </div>
-            <div class="payment-method-description">
-              Pay using any UPI app like Google Pay, PhonePe, Paytm, etc.
-            </div>
+      
           </div>
           
           <div class="payment-method" data-method="netbanking">
@@ -348,9 +338,7 @@
               </div>
               <label for="netbanking-payment" class="payment-method-title">Net Banking</label>
             </div>
-            <div class="payment-method-description">
-              Pay directly from your bank account.
-            </div>
+            
           </div>
         </div>
       </div>
@@ -435,8 +423,8 @@
           </div>
         </div>
 
-        <div class="refund-policy" style="background: #fff; border-radius: 8px; padding: 15px; font-size: 14px; color: #666;">
-          <h3 style="margin-top: 0; font-size: 16px;">Cancellation Policy</h3>
+        <div class="refund-policy" style="background: #081616 ; border-radius: 8px; padding: 15px; font-size: 14px; color: #666;">
+          <h3 style="margin-top: 0; font-size: 16px; color:white">Cancellation Policy</h3>
           <p>Tickets can be cancelled up to 4 hours before showtime for a full refund.</p>
         </div>
       </div>
