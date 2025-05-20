@@ -45,10 +45,12 @@
     }
     
     .container {
+    
       max-width: 1200px;
       margin: 0 auto;
       padding: 0;
       width: 100%;
+      
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -137,7 +139,7 @@
     .mission-tagline {
       text-align: center;
       font-style: italic;
-      margin: 2rem 0;
+      margin-top: 7rem;
       font-size: 1.2rem;
       color: var(--primary);
     }
@@ -177,14 +179,20 @@
       margin-bottom: 3rem;
     }
     
-    .locations-container {
+    
+     .credits-container {
+     
       max-height: 800px;
+      max-width: 400px;
       overflow-y: auto;
       padding-right: 1rem;
       /* Scrollbar styling */
       scrollbar-width: thin;
       scrollbar-color: var(--primary) var(--muted);
+      border-radius:20px;
+      
     }
+    
     
     .locations-container::-webkit-scrollbar {
       width: 8px;
@@ -303,9 +311,7 @@
     
     .credit-contribution {
       font-size: 0.9rem;
-      background-color: var(--muted);
       padding: 0.25rem 0.75rem;
-      border-radius: 50px;
     }
     
     .developers-title {
@@ -394,7 +400,7 @@
     </div>
   </section>
   
-  <div class="mission-tagline">- We are Mission: Bookable -</div>
+  <div class="mission-tagline">~ We are Mission: Bookable ~</div>
 
   <!-- Locations Section -->
   <section class="locations-section">
@@ -402,9 +408,9 @@
       <h2 class="locations-title">
         OUR LOCATIONS <i class="fas fa-map-marker-alt"></i>
       </h2>
-      <p class="locations-subtitle">Your Indiana Jones treasure found.</p>
+      <p class="locations-subtitle">Your Indiana Jones Treasure Found.</p>
       
-      <div class="locations-container">
+ 
         <!-- Location Template - Can be repeated for more locations -->
         <div class="location-card">
           <img src="${pageContext.request.contextPath}/images/theater1.jpg" alt="ReelGood New Baneshwor" class="location-image">
@@ -448,11 +454,12 @@
           </div>
         </div>
         
-      </div>
+      
     </div>
   </section>
 
   <!-- Credits Section -->
+   <div class="credits-container">
   <section class="credits-section">
     <div class="container">
       <h2 class="credits-title">Credits</h2>
@@ -464,7 +471,9 @@
             <span class="credit-person">SARTHAK BANIYA</span>
           </div>
           <p class="credit-subtitle">The Chosen One</p>
+          <span class="credit-role-title">Contributions</span>
           <div class="credit-contributions">
+          
             <span class="credit-contribution">Frontend Design</span>
             <span class="credit-contribution">Wireframes</span>
             <span class="credit-contribution">Report Formatting</span>
@@ -505,6 +514,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <jsp:include page="user-footer.jsp"/>
   </div>
