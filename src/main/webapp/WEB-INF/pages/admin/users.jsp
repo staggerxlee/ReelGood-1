@@ -43,7 +43,9 @@
 
         .header h1 {
             color: #2f3542;
-            font-size: 24px;
+            font-size: 40px;
+            margin-top: 40px;
+            margin-bottom:40px;
         }
 
         .user-table {

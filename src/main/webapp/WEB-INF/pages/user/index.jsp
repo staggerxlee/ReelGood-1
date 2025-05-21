@@ -216,9 +216,10 @@
         <div class="movie-grid">
           <c:forEach var="movie" items="${nowShowingMovies}">
             <div class="movie-card">
+            <span class="movie-rating">${movie.rating}/10</span>
               <div class="movie-poster">
                 <img src="<%= request.getContextPath() %>/movie-image?id=${movie.id}" alt="${movie.title}">
-                <span class="movie-rating">${movie.rating}/10</span>
+                
               </div>
               <div class="movie-info">
                 <h3 class="movie-title">${movie.title}</h3>

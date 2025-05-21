@@ -51,8 +51,11 @@
         }
 
         .header h1 {
-            color: #2f3542;
-            font-size: 24px;
+            
+             color: #2f3542;
+            font-size: 40px;
+            margin-top: 40px;
+            margin-bottom:40px;
         }
 
         .add-schedule-btn {
@@ -60,10 +63,11 @@
             color: white;
             border: none;
             padding: 10px 16px;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight:bold;
         }
 
         .add-schedule-btn:hover {
@@ -107,8 +111,10 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #333333;
             color: white;
+            font-weight:bold;
+            border-radius:20px;
         }
 
         .btn-primary:hover {
@@ -116,8 +122,11 @@
         }
 
         .btn-danger {
-            background-color: #dc3545;
+            background-color: red;
             color: white;
+            font-weight:bold;
+            border-radius:20px;
+        }
         }
 
         .btn-danger:hover {

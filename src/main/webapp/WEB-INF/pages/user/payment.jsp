@@ -291,9 +291,7 @@
 
   
   <div class="container">
-    <span class="back-link disabled" style="color: #aaa; cursor: not-allowed; display: inline-block; margin-bottom: 10px;">
-      <i class="fas fa-arrow-left"></i> Back to seat selection (unavailable)
-    </span>
+   
 
     <div class="timer-container">
       <div class="timer" id="countdown">

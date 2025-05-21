@@ -381,7 +381,7 @@
                       </c:if>
                       <c:if test="${param.error == 'account_has_dependencies'}">
                         <div class="alert alert-danger" style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,71,87,0.1); border-radius: 8px; color: #ff4757;">
-                          Cannot delete account because it has active bookings. Please cancel all bookings first.
+                          ERROR: Cannot delete account because it has active bookings. Please clear all your bookings or <a href="${pageContext.request.contextPath}/user/contact"><u>Contact Us</u></a>
                         </div>
                       </c:if>
                       <p style="color: #fff; margin-bottom: 1.5rem;">Warning: Deleting your account is <b>permanent</b> and cannot be <b>undone.</b> All your data, bookings, and profile information will be <b><i>permanently deleted.</i></b></p>

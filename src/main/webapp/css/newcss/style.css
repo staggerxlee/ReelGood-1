@@ -3,7 +3,7 @@
   --primary: #f62428;
   --primary-hover: rgb(128, 64, 64);
   --primary-foreground: #ffffff;
-  --background: #081616;
+  --background: #101C1C;
   --foreground: #ffffff;
   --muted: #3a1c1c;
   --muted-foreground: #b0a8a8;
@@ -548,16 +548,25 @@ header {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-weight: 500;
+  font-size:24px;
   cursor: pointer;
   text-align: center;
   color: var(--foreground);
+}
+
+.tab-trigger:hover{
+  background-color: #121414;
+  font-size: 26px;
+  transition: all 0.2s ease;
+   font-weight:bold;
 }
 
 .tab-trigger.active {
   background-color: var(--primary);
   border-color: var(--primary);
   color: var(--primary-foreground);
-  font-size: 40px;
+  font-size: 26px;
+  font-weight:bold;
 }
 
 .tab-content {
@@ -592,13 +601,14 @@ header {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  background-color: var(--muted);
+  background-color: #110A0A;
   transition: transform 0.2s ease;
 }
 
 .movie-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  opacity:50%;
 }
 
 .movie-poster {

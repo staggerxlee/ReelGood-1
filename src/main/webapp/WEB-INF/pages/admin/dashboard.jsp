@@ -25,7 +25,7 @@
         }
         .header
         { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;}
-        .header h1 { font-size: 32px; color: #333; font-weight: 600; }
+        .header h1 { font-size: 52px; color: #333; font-weight: 600; margin-top:30px;}
         .stats-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -42,7 +42,7 @@
         .stat-card:hover {
             transform: translateY(-5px);
         }
-        .stat-card h3 { color: #2f3542; margin-bottom: 15px; font-size: 18px; }
+        .stat-card h3 { color: #2f3542; margin-bottom: 15px; font-size: 24px; }
         .stat-card p { font-size: 32px; font-weight: bold; color: #ff4757; }
         .recent-activity { 
             background-color: #f1f2f6; 
@@ -58,9 +58,9 @@
             margin-bottom: 25px; 
         }
         .activity-header h2 {
-            font-size: 24px;
+            font-size: 32px;
             color: #2f3542;
-            font-weight: 600;
+            font-weight: bold;
         }
         .activity-list { list-style: none; }
         .activity-item { 
@@ -97,7 +97,7 @@
             display: flex; 
             gap: 40px; 
             flex-wrap: wrap; 
-            justify-content: flex-start; 
+            justify-content: center; 
         }
         .movie-card { 
             background: #fff; 
@@ -141,9 +141,10 @@
             margin-bottom: 6px; 
         }
         .movie-card .movie-status { 
-            font-size: 14px; 
+            font-size: 18px; 
             color: #007bff; 
             margin-bottom: 6px; 
+            font-weight: bold;
         }
         .movie-card .movie-release { 
             font-size: 14px; 
@@ -172,11 +173,12 @@
                     <p><c:out value="${stats.totalBookings}"/></p>
                 </div>
             </div>
-            <!-- Recent Bookings Panel -->
-            <div class="recent-activity">
-                <div class="activity-header">
+            <div class="activity-header">
                     <h2>Recent Bookings</h2>
                 </div>
+            <!-- Recent Bookings Panel -->
+            <div class="recent-activity">
+                
                 <ul class="activity-list">
                     <c:forEach items="${stats.recentBookings}" var="booking">
                         <li class="activity-item">
@@ -191,11 +193,12 @@
                     </c:forEach>
                 </ul>
             </div>
-            <!-- Recent Movies Card Panel -->
-            <div class="recent-activity">
-                <div class="activity-header">
+             <div class="activity-header">
                     <h2>Recent Movies</h2>
                 </div>
+            <!-- Recent Movies Card Panel -->
+            <div class="recent-activity">
+               
                 <c:choose>
                     <c:when test="${empty stats.recentMovies}">
                         <div style="color: #888; font-size: 16px; padding: 24px 0; text-align: center;">No recent movies found.</div>
@@ -233,7 +236,8 @@
                                         <i class="fas fa-trophy"></i>
                                     </div>
                                     <div class="activity-info">
-                                        <div><strong>#${status.index + 1}</strong> <c:out value="${theater.location}"/></div>
+                                        <div><strong style=" font-size:40px; font-weight:bold;">#${status.index + 1}</strong>
+                                        <p style="font-size: 28px;"><c:out value="${theater.location}"/></p></div>
                                         <div class="activity-time">Total Shows: <c:out value="${theater.totalShows}"/></div>
                                     </div>
                                 </li>

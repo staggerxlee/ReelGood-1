@@ -59,9 +59,7 @@
                                 <span class="login-error-message"></span>
                             </div>
                         </div>
-                        <div class="login-forgot-password">
-                            <a href="#">Forgot password?</a>
-                        </div>
+                        
                         <button type="submit" class="login-submit-btn">
                             <span>Login</span>
                             <i class="fa-solid fa-arrow-right"></i>

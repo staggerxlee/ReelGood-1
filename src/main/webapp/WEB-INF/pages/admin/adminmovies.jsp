@@ -66,17 +66,20 @@
 
         .header h1 {
             color: #2f3542;
-            font-size: 24px;
+            font-size: 40px;
+            margin-top:40px;
+            margin-bottom:40px;
         }
 
         .add-movie-btn {
             background-color: #ff4757;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 15px 30px;
+            border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 16px;
         }
 
         .add-movie-btn:hover {
@@ -340,19 +343,24 @@
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 40px;
             border: none;
-            border-radius: 4px;
+            border-radius: 20px;
             cursor: pointer;
         }
 
         .btn-primary {
-            background-color: #ff4757;
+            background-color: #333333;
             color: white;
         }
 
         .btn-secondary {
             background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-danger{
+        background-color: red;
             color: white;
         }
 
