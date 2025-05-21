@@ -143,7 +143,7 @@
             color: #fff;
         }
         .booking-card {
-            background: #231818;
+            background: #1E1E1E;
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -401,7 +401,7 @@
                     </div>
                 </div>
                 <div id="profile-bookings-section" class="profile-section-content">
-                    <h2>My Bookings</h2>
+                    <h2 style="margin-bottom:20px;">My Bookings</h2>
                     <c:if test="${not empty success}">
                         <div class="alert alert-success">${success}</div>
                     </c:if>
