@@ -345,7 +345,12 @@
                         
                         <div class="form-group">
                             <label for="theaterLocation">Theater Location<span class="required">*</span></label>
-                            <input type="text" id="theaterLocation" name="theaterLocation" required>
+                            <select id="theaterLocation" name="theaterLocation" required>
+  								<option value="">--Please choose an option--</option>
+  								<option value="ReelGood New Baneshwor Theater">New Baneshwor</option>
+  								<option value="ReelGood Putalisadak Theater">Putalisadak</option>
+  								<option value="ReelGood Bagbazar Theater">Bagbazar</option>
+							</select>
                         </div>
                         
                         <div class="form-group">
@@ -370,7 +375,12 @@
                         
                         <div class="form-group">
                             <label for="hallNumber">Hall Number</label>
-                            <input type="text" id="hallNumber" name="hallNumber">
+                            <select id="hallNumber" name="hallNumber" required>
+  								<option value="">--Please choose an option--</option>
+  								<option value="H1">Hall 1</option>
+  								<option value="H2">Hall 2</option>
+  								<option value="H3">Hall 3</option>
+							</select>
                         </div>
                         
                         <div class="form-group">

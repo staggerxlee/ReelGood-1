@@ -99,6 +99,7 @@ body {
   position: absolute;
   left: 0.5rem;
   top: 30%;
+   
   transform: translateY(-40%);
   color: var(--muted-foreground);
 }
@@ -110,7 +111,7 @@ body {
   width: 100%;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
   border: none;
-  border-radius: var(--radius);
+ border-radius: 50px;
   font-size: 0.875rem;
   transition: border-color 0.3s;
   background-color: #2a1010;

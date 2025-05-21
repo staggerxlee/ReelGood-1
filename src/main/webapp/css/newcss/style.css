@@ -562,7 +562,7 @@ header {
 }
 
 .tab-trigger.active {
-  background-color: var(--primary);
+  background-color: #0B0C0C;
   border-color: var(--primary);
   color: var(--primary-foreground);
   font-size: 26px;
@@ -817,7 +817,7 @@ header {
 }
 
 .seat-icon.taken {
-  background-color: var(--muted-foreground);
+  background-color: #f62428;
 }
 
 .theater-layout {

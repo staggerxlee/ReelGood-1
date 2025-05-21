@@ -202,15 +202,6 @@
         <url-pattern>/user/movies</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>UserDashboardController</servlet-name>
-        <servlet-class>com.reelgood.controller.UserDashboardController</servlet-class>
-        <async-supported>true</async-supported>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserDashboardController</servlet-name>
-        <url-pattern>/user/index</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>UserIndexController</servlet-name>
@@ -219,7 +210,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserIndexController</servlet-name>
-        <url-pattern>/user/home</url-pattern>
+        <url-pattern>/user/index</url-pattern>
     </servlet-mapping>
 
     <servlet>
