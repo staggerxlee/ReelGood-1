@@ -490,10 +490,11 @@
           <div class="credit-row">
             <div class="credit-label">Contribution:</div>
             <div class="credit-content">
-              <div class="credit-contribution-item">Frontend Design</div>
-              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item"> Testing</div>
+              <div class="credit-contribution-item">Method Description</div>
               <div class="credit-contribution-item">Report Formatting</div>
               <div class="credit-contribution-item">Report Writing</div>
+              <div class="credit-contribution-item">Class Diagram</div>
             </div>
           </div>
         </div>
