@@ -3,7 +3,7 @@
   --primary: #f62428;
   --primary-hover: rgb(128, 64, 64);
   --primary-foreground: #ffffff;
-  --background: #101C1C;
+  --background: #081616;
   --foreground: #ffffff;
   --muted: #3a1c1c;
   --muted-foreground: #b0a8a8;
@@ -194,6 +194,7 @@ header {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
   color: var(--foreground);
+  font-size:40px;
 }
 
 .slideshow-container {
@@ -202,6 +203,7 @@ header {
   align-items: center;
   justify-content: center;
   height: 450px;
+  margin-bottom:20px;
 }
 
 .slideshow-nav {
@@ -562,9 +564,9 @@ header {
 }
 
 .tab-trigger.active {
-  background-color: #0B0C0C;
-  border-color: var(--primary);
-  color: var(--primary-foreground);
+  background-color: #CC0000 !important;
+  border-color:var(--primary);
+  color:var(--primary-foreground);
   font-size: 26px;
   font-weight:bold;
 }
@@ -1142,11 +1144,7 @@ body.movie-details-page {
   color: #fff;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+
 
 .back-link {
   display: inline-flex;

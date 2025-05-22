@@ -11,12 +11,13 @@
 </head>
     <style>
         body {
-            background: #2a1616;
+            
         }
         .profile-layout {
             display: flex;
             gap: 2rem;
             margin-top: 2rem;
+          
         }
         .profile-sidebar {
             position: sticky;

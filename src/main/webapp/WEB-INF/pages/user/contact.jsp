@@ -31,7 +31,7 @@
       /* Contact Section */
       .contact-section {
         margin-bottom: 3rem;
-        background-color: var(--muted);
+        background-color: #231818;
         padding: 2rem;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
@@ -133,7 +133,7 @@
         gap: 1.5rem;
       }
       .faq-item {
-        background-color: var(--muted);
+        background-color: #231818;
         padding: 1.5rem;
         border-radius: var(--radius);
         box-shadow: var(--shadow);

@@ -96,7 +96,7 @@
 </head>
 <body>
   <div class="container">
-    <h1 style="text-align:center; margin-top: 24px;">All Movies</h1>
+    <h1 style="text-align:left; margin-left:20px; margin-top: 24px; margin-bottom:24px; font-size:60px;">All Movies</h1>
     <div class="movie-grid">
       <c:forEach var="movie" items="${movies}">
         <div class="movie-card">

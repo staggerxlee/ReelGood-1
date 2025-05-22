@@ -65,6 +65,8 @@
     border-radius: 8px;
     letter-spacing: 0.01em;
   }
+  
+  
   .navbar-search {
     display: flex;
     align-items: center;

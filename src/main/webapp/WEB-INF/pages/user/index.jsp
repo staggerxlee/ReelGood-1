@@ -21,14 +21,14 @@
     .movie-card {
       background: #231818;
       color: #fff;
-      border-radius: 10px;
+      border-radius: 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       width: 260px;
       padding: 18px 16px 16px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
+      position: relative;;
     }
     .movie-card img {
       width: 135px;
