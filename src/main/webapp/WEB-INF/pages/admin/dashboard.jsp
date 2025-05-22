@@ -237,7 +237,7 @@
                                     </div>
                                     <div class="activity-info">
                                         <div><strong style=" font-size:40px; font-weight:bold;">#${status.index + 1}</strong>
-                                        <p style="font-size: 28px;"><c:out value="${theater.location}"/></p></div>
+                                        <p style="font-size: 22px; font-weight:bold;"><c:out value="${theater.location}"/></p></div>
                                         <div class="activity-time">Total Shows: <c:out value="${theater.totalShows}"/></div>
                                     </div>
                                 </li>
