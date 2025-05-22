@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss/admin-sidebar.css">
 <div class="sidebar">
     <div class="sidebar-header">
-        <div class="sidebar-logo">ReelGood Admin</div>
+        <div class="sidebar-logo"><a href="${pageContext.request.contextPath}/admin/dashboard" class="${pageContext.request.servletPath == '/admin/dashboard' ? 'active' : ''}"><img src="<%= request.getContextPath() %>/images/ReelGood.jpg" alt="ReelGood Logo" style="width:200px;"></a></div>
     </div>
     <ul class="sidebar-menu">
         <li><a href="${pageContext.request.contextPath}/admin/dashboard" class="${pageContext.request.servletPath == '/admin/dashboard' ? 'active' : ''}"><i class="fas fa-home"></i> Dashboard</a></li>
