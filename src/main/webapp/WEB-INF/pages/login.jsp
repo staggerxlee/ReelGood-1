@@ -40,6 +40,7 @@
                     <picture>
                         <img src="<%= request.getContextPath() %>/images/ReelGood.jpg" alt="logo" style="width: 200px; height: auto;" class="center"> 
                     </picture>
+                    <h2>Login to your Account</h2>
                     <form id="login-form" action="<%= request.getContextPath() %>/login" method="post">
                         <input type="hidden" name="redirect" value="<%= request.getContextPath() %>/user/index">
                         <div class="login-form-group">
