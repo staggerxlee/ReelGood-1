@@ -12,7 +12,7 @@
         <li><a href="${pageContext.request.contextPath}/admin/support" class="${pageContext.request.servletPath == '/admin/support' ? 'active' : ''}"><i class="fas fa-headset"></i> Support</a></li>
         <li>
             <form action="${pageContext.request.contextPath}/logout" method="post" style="margin:0;">
-                <button type="submit" class="logout-btn" style="width:100%;text-align:left;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button type="submit" class="logout-btn" style="width:100%; font-weight:bold; text-align:left; font-size:16px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </form>
         </li>
     </ul>
