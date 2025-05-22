@@ -488,7 +488,11 @@
             %>
 
             <% if (errorMessage != null) { %>
-                <div class="error-message"><%= errorMessage %></div>
+            <div class="error-message" style="position: fixed; top: 32px; left: 50%; transform: translateX(-50%); background: white; color: #ff4757; padding: 18px 36px; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); font-size: 1.08rem; z-index: 9999; text-align: center;">
+        <i class="fa fa-exclamation-circle" style="margin-right: 8px;"></i>
+       <%= errorMessage %>
+      </div>
+                
             <% } %>
 
             <% if (successMessage != null) { %>

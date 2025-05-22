@@ -512,10 +512,9 @@
           <div class="credit-row">
             <div class="credit-label">Contribution:</div>
             <div class="credit-content">
-              <div class="credit-contribution-item">Frontend Design</div>
-              <div class="credit-contribution-item">Wireframes</div>
-              <div class="credit-contribution-item">Report Formatting</div>
-              <div class="credit-contribution-item">Report Writing</div>
+              <div class="credit-contribution-item">User Frontend Design</div>
+              <div class="credit-contribution-item">User Frontend HTML Development</div>
+              
             </div>
           </div>
         </div>
@@ -531,10 +530,53 @@
           <div class="credit-row">
             <div class="credit-label">Contribution:</div>
             <div class="credit-content">
-              <div class="credit-contribution-item">Frontend Design</div>
-              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item">Admin Frontend Design Development</div>
+              <div class="credit-contribution-item">CRUD Operations (Backend)</div>
               <div class="credit-contribution-item">Report Formatting</div>
+              <div class="credit-contribution-item">Critical Analysis</div>
+            </div>
+          </div>
+        </div>
+        
+         <h3 class="developers-title">Meet the Reporters</h3>
+        <p class="developers-subtitle">AKA: Beauty and the Brief</p>
+        
+        <div class="credit-item">
+          <div class="credit-row">
+            <div class="credit-label">Report Writing:</div>
+            <div class="credit-content">
+              <div class="credit-person">MANISH SHRESTHA</div>
+              <div class="credit-subtitle">Darth Paper</div>
+            </div>
+          </div>
+          <div class="credit-row">
+            <div class="credit-label">Contribution:</div>
+            <div class="credit-content">
               <div class="credit-contribution-item">Report Writing</div>
+              <div class="credit-contribution-item">Tools Description</div>
+              <div class="credit-contribution-item">Wireframes</div>
+              <div class="credit-contribution-item">Normalization</div>
+              <div class="credit-contribution-item">Entity Relationship Diagram</div>
+              <div class="credit-contribution-item">Database Creation</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="credit-item">
+          <div class="credit-row">
+            <div class="credit-label">Report Writing:</div>
+            <div class="credit-content">
+              <div class="credit-person">SAROJ BABU KARKI</div>
+              <div class="credit-subtitle">Indiana Fonts</div>
+            </div>
+          </div>
+          <div class="credit-row">
+            <div class="credit-label">Contribution:</div>
+            <div class="credit-content">
+             <div class="credit-contribution-item">Introduction</div>
+              <div class="credit-contribution-item">Conclusion</div>
+              <div class="credit-contribution-item">Acknowledgement</div>
+              <div class="credit-contribution-item">Tools Description</div>
             </div>
           </div>
         </div>
